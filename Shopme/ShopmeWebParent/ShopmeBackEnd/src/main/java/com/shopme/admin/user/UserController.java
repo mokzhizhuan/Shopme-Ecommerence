@@ -1,8 +1,6 @@
 package com.shopme.admin.user;
 
 import java.util.List;
-import java.util.NoSuchElementException;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,7 +23,7 @@ public class UserController
 	{
 		List<User> listUser = service.listAll();
 		model.addAttribute("listUsers",listUser);
-		return "users";
+		return "users/users";
 	}
 	
 	@GetMapping("/users/new")
@@ -38,10 +36,10 @@ public class UserController
 		model.addAttribute("user",user);
 		model.addAttribute("listRoles",listRoles);
 		model.addAttribute("PageTitle",title);
-		return "user_form";
+		return "users/user_form";
 	}
 	
-	@PostMapping("/save")
+	@PostMapping("/users/save")
 	public String savenewUser(User user, RedirectAttributes redirect, int ID)
 	{
 		System.out.println(user);
@@ -52,7 +50,7 @@ public class UserController
 		return "redirect:/users";
 	}
 	
-	@GetMapping("users/edit/{ID}")
+	@GetMapping("/users/edit/{ID}")
 	public String edituser(@PathVariable(name = "ID") int ID, Model model,
 			RedirectAttributes redirectAttributes)
 	{
@@ -64,7 +62,7 @@ public class UserController
 			model.addAttribute("user", user);
 			model.addAttribute("listRoles",listRoles);
 			model.addAttribute("PageTitle",title);
-			return "user_form";
+			return "users/edit_user_form";
 		}
 		catch(UserNotFoundException ex)
 		{
@@ -73,7 +71,7 @@ public class UserController
 		}
 	}
 	
-	@GetMapping("users/delete/{ID}")
+	@GetMapping("/users/delete/{ID}")
 	public String deleteuser(@PathVariable(name = "ID") int ID, Model model,
 			RedirectAttributes redirectAttributes)
 	{

@@ -1,11 +1,10 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="Content-Type" content="text/html"; charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
-<title>Shopme Admin Control Panel</title>
+<title>Shopme User Control Panel</title>
 <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" />
-<link rel="stylesheet" type="text/css" th:href="@{/style.css}" />
 <script type ="text/javascript" th:src="@{/webjars/jquery/jquery.min.js}"></script>
 <script type ="text/javascript" th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
 </head>
@@ -73,11 +72,42 @@
 	</nav>
 </div>
 <div>
-	<h1>Shopme Control Panel</h1>
+	<h2>Manage Catergories</h2><br/>
+	<a th:href="@{/catergories/new}">Create New Catergories</a>
 	</div>
 	
-	<p>Welcome <b sec:authentication="principal.FullName"></b>
-	<span sec:authentication="principal.Authorities"></span></p>
+	<div th:if="${message != null}" class="alert alert-success text-center">
+		[[${message}]]
+	</div>
+	
+	<div>
+		<form th:action"@{/catergories/page/1}" class="form-inline m-3">
+		 Fliter &nbsp;
+		 <input type="search" name="keyword" class="form-control" th:value="${keyword}" required/>
+		 &nbsp; &nbsp;
+		 <input type="submit" value="Search" class="btn btn-primary m-3"/>
+		 	<i class="fas fa-search"></i>
+		 <input type="button" value="ClearFilter" class="btn btn-secondary" id="buttonCancel" onclick="clearFilter()"/>
+		 	<i class="fas fa-eraser"></i>
+		</form>
+	</div>
+	
+	<div class="full-details">
+		<table class="table table-borded table-striped table-hover table-responsive-xl">
+			<thead class="thread-dark">
+				<tr>
+					<th>ID</th>
+					<th>Catergory Name</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="cat : ${listCategories}">
+					<td>[[${cat.ID}]]</td>
+					<td>[[${cat.Name}]]</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
 	<div>
 	<p>Shopme Control Panel - Copyright &copy; Shopme</p>
 	</div>
