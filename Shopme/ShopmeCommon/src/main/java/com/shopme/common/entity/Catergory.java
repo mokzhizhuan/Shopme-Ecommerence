@@ -47,6 +47,44 @@ public class Catergory
 		this.ID = id;
 	}
 
+	public static Catergory copyIDANDNAME(Catergory category)
+	{
+		Catergory copycategory = new Catergory();
+		copycategory.setID(category.getID());
+		copycategory.setName(category.getName());
+		
+		return copycategory;
+	}
+	
+	public static Catergory copyIDANDNAME(int ID , String name)
+	{
+		Catergory copycategory = new Catergory();
+		copycategory.setID(ID);
+		copycategory.setName(name);
+		
+		return copycategory;
+	}
+	
+	public static Catergory copyFull(Catergory category)
+	{
+		Catergory copycategory = new Catergory();
+		copycategory.setID(category.getID());
+		copycategory.setName(category.getName());
+		
+		
+		return copycategory;
+	}
+	
+	public static Catergory copyFull(Catergory category, String name)
+	{
+		Catergory copycategory = new Catergory();
+		copycategory.setID(category.getID());
+		copycategory.setName(name);
+		
+		
+		return copycategory;
+	}
+	
 	public Catergory(String name, Catergory parent) 
 	{
 		this(name);

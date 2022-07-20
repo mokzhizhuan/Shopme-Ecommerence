@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html"; charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
-<title>Shopme Admin Control Panel</title>
+<title>Shopme User Control Panel</title>
 <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" />
 <script type ="text/javascript" th:src="@{/webjars/jquery/jquery.min.js}"></script>
 <script type ="text/javascript" th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
@@ -63,82 +63,46 @@
 	</nav>
 </div>
 <div>
-	<h2>Manage User - [[${PageTitle}]]</h2>
+	<h2>Manage Products</h2><br/>
+	<a th:href="@{/products/new}">Create New Product</a>
 	</div>
-		<form th:action="@{/users/save}" method="post" style="width: 900px; margin: 0 auto" th:object="${user}">
-		<input type="hidden" th:field="*{ID}"/>
-		<input type="hidden" name="_csrf" th:if="${user.ID == null}" value="b67be1ab-ccfc-4074-892d-b87dc490d256" />
-		<div class ="border border-secondary rounded p-3">
-		<div class="form-group row">
-			<label class="col-sm-4 col-form-label">E-Mail:</label>
-			<div class="col-sm-8">
-				<input type="email" id="email"class="form-control" th:field="*{email}" required maxlength="128"/>
-			</div>
-			</div>
-			
-			<div class="form-group row">
-			<label class="col-sm-4 col-form-label">First Name:</label>
-			<div class="col-sm-8">
-				<input type="text" class="form-control" th:field="*{fname}" required maxlength="128"/>
-			</div>
-			</div>
-			
-			<div class="form-group row">
-			<label class="col-sm-4 col-form-label">Last Name:</label>
-			<div class="col-sm-8">
-				<input type="text" class="form-control" th:field="*{lname}" required maxlength="128"/>
-			</div>
-			</div>
-			
-			<div class="form-group row">
-			<label class="col-sm-4 col-form-label">Password</label>
-			<div class="col-sm-8">
-				<input th:if="${user.ID == null}" type="password" class="form-control" th:field="*{password}" required maxlength="64"/>
-				
-				<input th:if="${user.ID != null}" type="password" class="form-control" th:field="*{password}" maxlength="64"/>
-			</div>
-			</div>
-			
-			<div class="form-group row">
-			<label class="col-sm-4 col-form-label">Roles</label>
-			<div class="col-sm-8">
-				<th:block th:each="role : ${listRoles}">
-				<input type="checkbox" th:field="*{roles}"
-					th:text="${role.name}"
-					th:value="${role.ID}"
-				/>
-				&nbsp; : &nbsp;
-				<small>[[${role.descrption}]]</small>
-				<br/>
-				</th:block>
-			</div>
-			</div>
-			
-			<div class="form-group row">
-			<label class="col-sm-4 col-form-label">Enabled</label>
-			<div class="col-sm-8">
-				<input type="checkbox" th:field="*{enabled}"/>
-			</div>
-			</div>
-			
-			<div class="text-center" style="margin: 0 auto">
-				<input type="submit" value="Save" class="btn btn-primary m-3"/>
-				<input type="button" value="Cancel" class="btn btn-secondary" id="buttonCancel"/>
-			</div>
+	
+	<div th:if="${message != null}" class="alert alert-success text-center">
+		[[${message}]]
 	</div>
-	</form>
+
+	
+	<div class="full-details">
+		<table class="table table-borded table-striped table-hover table-responsive-xl">
+			<thead class="thread-dark">
+				<tr>
+					<th>Product ID</th>
+					<th>Product Name</th>
+					<th>Category</th>
+					<th>Enabled</th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="product : ${listProduct}">
+					<td>[[${product.ID}]]</td>
+					<td>[[${product.Name}]]</td>
+					<td>[[${product.category.name}]]</td>
+					<td></td>
+					<td>
+						<a class="fas fa-edit fa-2x icon-green" title="Edit this user">Edit</a> 
+						&nbsp; 
+						<a class="fas fa-edit fa-2x icon-blue"  title="Delete this user">Delete</a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
 	<div>
 	<p>Shopme Control Panel - Copyright &copy; Shopme</p>
 	</div>
 	</div>
 	<script type="text/javascript">
-		$(document).ready(function()
-		{
-			$("#buttonCancel").on("click", function() 
-			{
-				window.location = "[[@{/users}]]";
-			});
-		});
 		$(document).ready(function()
 		{
 			$("#LogoutLink").on("click", function(e) 

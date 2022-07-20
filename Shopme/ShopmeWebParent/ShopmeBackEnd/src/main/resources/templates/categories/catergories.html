@@ -33,10 +33,7 @@
 					<a class="nav-link" th:href="@{/catergories}">Categories</a>
 				</li>
 				</th:block>
-				<li class="nav-item">
-					<a class="nav-link" th:href="@{/brands}">Brands</a>
-				</li>
-				<li class="nav-item">
+				<li class="nav-item" sec:authorize="hasAnyAuthority('Admin', 'Editor', 'Shipper' , 'SalesPerson')">
 					<a class="nav-link" th:href="@{/products}">Product</a>
 				</li>
 				<li class="nav-item">
@@ -47,12 +44,6 @@
 				</li>
 				<li class="nav-item">
 					<a class="nav-link" th:href="@{/orders}">Orders</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" th:href="@{/reports}">Sales Reports</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" th:href="@{/article}">Article</a>
 				</li>
 				<li class="nav-item">
 					<a class="nav-link" th:href="@{/menus}">Menus</a>
@@ -79,18 +70,7 @@
 	<div th:if="${message != null}" class="alert alert-success text-center">
 		[[${message}]]
 	</div>
-	
-	<div>
-		<form th:action"@{/catergories/page/1}" class="form-inline m-3">
-		 Fliter &nbsp;
-		 <input type="search" name="keyword" class="form-control" th:value="${keyword}" required/>
-		 &nbsp; &nbsp;
-		 <input type="submit" value="Search" class="btn btn-primary m-3"/>
-		 	<i class="fas fa-search"></i>
-		 <input type="button" value="ClearFilter" class="btn btn-secondary" id="buttonCancel" onclick="clearFilter()"/>
-		 	<i class="fas fa-eraser"></i>
-		</form>
-	</div>
+
 	
 	<div class="full-details">
 		<table class="table table-borded table-striped table-hover table-responsive-xl">
@@ -104,6 +84,13 @@
 				<tr th:each="cat : ${listCategories}">
 					<td>[[${cat.ID}]]</td>
 					<td>[[${cat.Name}]]</td>
+					<td>
+						<a class="fas fa-edit fa-2x icon-green" th:href="@{'catergories/edit/' + ${cat.ID}}"
+						 title="Edit this user">Edit</a> 
+						&nbsp; 
+						<a class="fas fa-edit fa-2x icon-blue" th:href="@{'catergories/delete/' + ${cat.ID}}" 
+						title="Delete this user">Delete</a>
+					</td>
 				</tr>
 			</tbody>
 		</table>

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+<div th:fragment="content" th:remove="tag">
+	<div>
+		<label>Description</label>
+		<textarea class="form-control"th:field="*{Description}" rows="5"></textarea>
+	</div>
+	
+	<div class="text-center" style="margin: 0 auto">
+				<input type="submit" value="Save" class="btn btn-primary m-3"/>
+				<input type="button" value="Cancel" class="btn btn-secondary" id="buttonCancel"/>
+		</div>
+</div>
+</body>
+</html>

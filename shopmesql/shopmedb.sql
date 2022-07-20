@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 18, 2022 at 03:29 AM
+-- Generation Time: Jul 20, 2022 at 04:56 AM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 8.1.6
 
@@ -20,6 +20,8 @@ SET time_zone = "+00:00";
 --
 -- Database: `shopmedb`
 --
+CREATE DATABASE IF NOT EXISTS `shopmedb` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+USE `shopmedb`;
 
 -- --------------------------------------------------------
 
@@ -27,6 +29,7 @@ SET time_zone = "+00:00";
 -- Table structure for table `catergories`
 --
 
+DROP TABLE IF EXISTS `catergories`;
 CREATE TABLE `catergories` (
   `id` int(11) NOT NULL,
   `name` varchar(128) DEFAULT NULL,
@@ -49,8 +52,40 @@ INSERT INTO `catergories` (`id`, `name`, `parentid`) VALUES
 (15, 'iPhone', 14),
 (17, 'Samsung Phone', 14),
 (21, 'HardDrive', 5),
-(22, 'Earphone', NULL),
-(23, 'lenovo', NULL);
+(26, 'Asus', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `products`
+--
+
+DROP TABLE IF EXISTS `products`;
+CREATE TABLE `products` (
+  `id` int(11) NOT NULL,
+  `description` varchar(4096) DEFAULT NULL,
+  `cost` float NOT NULL,
+  `created_time` datetime(6) DEFAULT NULL,
+  `discount` float NOT NULL,
+  `enabled` bit(1) NOT NULL,
+  `height` float NOT NULL,
+  `in_stock` bit(1) DEFAULT NULL,
+  `length` float NOT NULL,
+  `name` varchar(128) NOT NULL,
+  `updated_time` datetime(6) DEFAULT NULL,
+  `weight` float NOT NULL,
+  `width` float NOT NULL,
+  `catergory_id` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `products`
+--
+
+INSERT INTO `products` (`id`, `description`, `cost`, `created_time`, `discount`, `enabled`, `height`, `in_stock`, `length`, `name`, `updated_time`, `weight`, `width`, `catergory_id`) VALUES
+(1, NULL, 456, '2022-07-18 17:52:54.000000', 0, b'1', 0, b'1', 0, 'Samsung Galaxy A31', '2022-07-18 17:52:54.000000', 0, 0, 17),
+(2, NULL, 1056, '2022-07-18 17:56:02.000000', 0, b'1', 0, b'1', 0, 'Iphone 13 Pro MAX', '2022-07-18 17:56:02.000000', 0, 0, 15),
+(3, NULL, 852, '2022-07-18 22:58:07.000000', 0, b'1', 0, b'1', 0, 'Dell Laptop', '2022-07-18 22:58:07.000000', 0, 0, 1);
 
 -- --------------------------------------------------------
 
@@ -58,6 +93,7 @@ INSERT INTO `catergories` (`id`, `name`, `parentid`) VALUES
 -- Table structure for table `roles`
 --
 
+DROP TABLE IF EXISTS `roles`;
 CREATE TABLE `roles` (
   `ID` int(11) NOT NULL,
   `name` varchar(45) DEFAULT NULL,
@@ -81,6 +117,7 @@ INSERT INTO `roles` (`ID`, `name`, `descrption`) VALUES
 -- Table structure for table `users`
 --
 
+DROP TABLE IF EXISTS `users`;
 CREATE TABLE `users` (
   `ID` int(11) NOT NULL,
   `email` varchar(128) NOT NULL,
@@ -106,6 +143,7 @@ INSERT INTO `users` (`ID`, `email`, `enabled`, `first_name`, `last_name`, `passw
 -- Table structure for table `user_roles`
 --
 
+DROP TABLE IF EXISTS `user_roles`;
 CREATE TABLE `user_roles` (
   `user_id` int(11) NOT NULL,
   `role_id` int(11) NOT NULL
@@ -135,6 +173,14 @@ ALTER TABLE `catergories`
   ADD KEY `FKohiu16ouxy9a8gv5q4axyarvf` (`parentid`);
 
 --
+-- Indexes for table `products`
+--
+ALTER TABLE `products`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `UK_o61fmio5yukmmiqgnxf8pnavn` (`name`),
+  ADD KEY `FKma7q1l2dfg3lt9k2ibq6wqm6x` (`catergory_id`);
+
+--
 -- Indexes for table `roles`
 --
 ALTER TABLE `roles`
@@ -162,7 +208,13 @@ ALTER TABLE `user_roles`
 -- AUTO_INCREMENT for table `catergories`
 --
 ALTER TABLE `catergories`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
+
+--
+-- AUTO_INCREMENT for table `products`
+--
+ALTER TABLE `products`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `roles`
@@ -185,6 +237,12 @@ ALTER TABLE `users`
 --
 ALTER TABLE `catergories`
   ADD CONSTRAINT `FKohiu16ouxy9a8gv5q4axyarvf` FOREIGN KEY (`parentid`) REFERENCES `catergories` (`id`);
+
+--
+-- Constraints for table `products`
+--
+ALTER TABLE `products`
+  ADD CONSTRAINT `FKma7q1l2dfg3lt9k2ibq6wqm6x` FOREIGN KEY (`catergory_id`) REFERENCES `catergories` (`id`);
 
 --
 -- Constraints for table `user_roles`

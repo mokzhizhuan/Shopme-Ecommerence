@@ -1,15 +1,17 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
+<link rel="stylesheet" th:href="@{/richtext/richtext.min.css}" />
+<script type ="text/javascript" th:src="@{/richtext/jquery.richtext.min.js}"></script>
 <meta http-equiv="Content-Type" content="text/html"; charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
-<title>Shopme Admin Control Panel</title>
+<title>Shopme User Control Panel</title>
 <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" />
 <script type ="text/javascript" th:src="@{/webjars/jquery/jquery.min.js}"></script>
 <script type ="text/javascript" th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
 </head>
 <body>
-<div class="container-fluid">
+<div class="container-fluid"></div>
 <div>
 	<form th:action="@{/logout}" method="post" th:hidden="true" name="LogoutForm">
 		<input type="hidden" name="_csrf" value="dbafe022-ae5d-4817-b20e-3eddb689a4cb"/>
@@ -63,70 +65,45 @@
 	</nav>
 </div>
 <div>
-	<h2>Manage User - [[${PageTitle}]]</h2>
-	</div>
-		<form th:action="@{/users/save}" method="post" style="width: 900px; margin: 0 auto" th:object="${user}">
+	<h2>Manage Product - [[${PageTitle}]]</h2><br/>
+	
+	<form th:action="@{/products/save}" method="post" style="width: 1200px; margin: 0 auto" th:object="${product}" onsubmit="return checkCategoryNameUnique(this);">
 		<input type="hidden" th:field="*{ID}"/>
-		<input type="hidden" name="_csrf" th:if="${user.ID == null}" value="b67be1ab-ccfc-4074-892d-b87dc490d256" />
-		<div class ="border border-secondary rounded p-3">
-		<div class="form-group row">
-			<label class="col-sm-4 col-form-label">E-Mail:</label>
-			<div class="col-sm-8">
-				<input type="email" id="email"class="form-control" th:field="*{email}" required maxlength="128"/>
-			</div>
-			</div>
+		<input type="hidden" name="_csrf" th:if="${product.ID == null}" value="b67be1ab-ccfc-4074-892d-b87dc490d256" />
+			<!-- Nav tabs -->
+			<ul class="nav nav-tabs" id="myTab" role="tablist">
+			  <li class="nav-item">
+			    <a class="nav-link active" id="overview-tab" data-toggle="tab" href="#overview" role="tab" aria-controls="overview" aria-selected="true">Overview</a>
+			  </li>
+			  <li class="nav-item">
+			    <a class="nav-link" id="description-tab" data-toggle="tab" href="#description" role="tab" aria-controls="description" aria-selected="false">Description</a>
+			  </li>
+			  <li class="nav-item">
+			    <a class="nav-link" id="image-tab" data-toggle="tab" href="#image" role="tab" aria-controls="image" aria-selected="false">Image</a>
+			  </li>
+			  <li class="nav-item">
+			    <a class="nav-link" id="detail-tab" data-toggle="tab" href="#detail" role="tab" aria-controls="detail" aria-selected="false">Details</a>
+			  </li>
+			  <li class="nav-item">
+			    <a class="nav-link" id="shipping-tab" data-toggle="tab" href="#shipping" role="tab" aria-controls="shipping" aria-selected="false">Shipping</a>
+			  </li>
+			</ul>
 			
-			<div class="form-group row">
-			<label class="col-sm-4 col-form-label">First Name:</label>
-			<div class="col-sm-8">
-				<input type="text" class="form-control" th:field="*{fname}" required maxlength="128"/>
+			<!-- Tab panes -->
+			<div class="tab-content">
+			  <div class="tab-pane active" id="overview" role="tabpanel" aria-labelledby="overview-tab">
+			  <div th:replace="product/product_overview :: content"></div></div>
+			  <div class="tab-pane" id="description" role="tabpanel" aria-labelledby="description-tab">
+			  <div th:replace="product/product_description :: content"></div></div>
+			  <div class="tab-pane" id="image" role="tabpanel" aria-labelledby="image-tab">Image</div>
+			  <div class="tab-pane" id="detail" role="tabpanel" aria-labelledby="detail-tab">Details</div>
+			  <div class="tab-pane" id="shipping" role="tabpanel" aria-labelledby="shipping-tab">
+			  <div th:replace="product/product_shipping :: content"></div></div>
 			</div>
-			</div>
-			
-			<div class="form-group row">
-			<label class="col-sm-4 col-form-label">Last Name:</label>
-			<div class="col-sm-8">
-				<input type="text" class="form-control" th:field="*{lname}" required maxlength="128"/>
-			</div>
-			</div>
-			
-			<div class="form-group row">
-			<label class="col-sm-4 col-form-label">Password</label>
-			<div class="col-sm-8">
-				<input th:if="${user.ID == null}" type="password" class="form-control" th:field="*{password}" required maxlength="64"/>
-				
-				<input th:if="${user.ID != null}" type="password" class="form-control" th:field="*{password}" maxlength="64"/>
-			</div>
-			</div>
-			
-			<div class="form-group row">
-			<label class="col-sm-4 col-form-label">Roles</label>
-			<div class="col-sm-8">
-				<th:block th:each="role : ${listRoles}">
-				<input type="checkbox" th:field="*{roles}"
-					th:text="${role.name}"
-					th:value="${role.ID}"
-				/>
-				&nbsp; : &nbsp;
-				<small>[[${role.descrption}]]</small>
-				<br/>
-				</th:block>
-			</div>
-			</div>
-			
-			<div class="form-group row">
-			<label class="col-sm-4 col-form-label">Enabled</label>
-			<div class="col-sm-8">
-				<input type="checkbox" th:field="*{enabled}"/>
-			</div>
-			</div>
-			
-			<div class="text-center" style="margin: 0 auto">
-				<input type="submit" value="Save" class="btn btn-primary m-3"/>
-				<input type="button" value="Cancel" class="btn btn-secondary" id="buttonCancel"/>
-			</div>
-	</div>
 	</form>
+
+	
+	
 	<div>
 	<p>Shopme Control Panel - Copyright &copy; Shopme</p>
 	</div>
@@ -136,9 +113,10 @@
 		{
 			$("#buttonCancel").on("click", function() 
 			{
-				window.location = "[[@{/users}]]";
+				window.location = "[[@{/products}]]";
 			});
 		});
+		
 		$(document).ready(function()
 		{
 			$("#LogoutLink").on("click", function(e) 

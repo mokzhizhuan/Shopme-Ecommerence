@@ -60,4 +60,10 @@ public class CatergoryRepositoryTests
 		assertThat(childcater.size()).isGreaterThan(0);
 	}
 	
+	@Test
+	public void testListRootCategory()
+	{
+		List<Catergory> rootCatergories = caterrepo.findRootCatergories();
+		rootCatergories.forEach(cat -> System.out.println(cat.getName()));
+	}
 }
