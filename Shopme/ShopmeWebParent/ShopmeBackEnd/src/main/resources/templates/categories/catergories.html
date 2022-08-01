@@ -40,9 +40,6 @@
 					<a class="nav-link" th:href="@{/customers}">Customers</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" th:href="@{/shipping}">Shipping</a>
-				</li>
-				<li class="nav-item">
 					<a class="nav-link" th:href="@{/orders}">Orders</a>
 				</li>
 				<li class="nav-item">
@@ -52,7 +49,7 @@
 					<a class="nav-link" th:href="@{/settings}">Settings</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" data-toggle="dropdown"
+					<a class="nav-link dropdown-toggle" data-toggle="dropdown" th:href="@{/account}"
 					sec:authentication="principal.FullName"></a>
 					<div class="dropdown-menu">
 						<a class="dropdown-item" id="LogoutLink" href="">Logout</a>
@@ -86,10 +83,12 @@
 					<td>[[${cat.Name}]]</td>
 					<td>
 						<a class="fas fa-edit fa-2x icon-green" th:href="@{'catergories/edit/' + ${cat.ID}}"
-						 title="Edit this user">Edit</a> 
+						 title="Edit this category">Edit</a> 
 						&nbsp; 
-						<a class="fas fa-edit fa-2x icon-blue" th:href="@{'catergories/delete/' + ${cat.ID}}" 
-						title="Delete this user">Delete</a>
+						<th:block th:if="${cat.hasChild == false}">
+						<a class="fas fa-edit fa-2x icon-blue link-delete" id="linkdelete"  th:href="@{'catergories/delete/' + ${cat.ID}}" 
+						th:entityId="${cat.ID}" title="Delete this category">Delete</a>
+						</th:block>
 					</td>
 				</tr>
 			</tbody>
@@ -99,6 +98,7 @@
 	<p>Shopme Control Panel - Copyright &copy; Shopme</p>
 	</div>
 	</div>
+	<script th:src="@{/js/common_list.js}"></script>
 	<script type="text/javascript">
 		$(document).ready(function()
 		{
@@ -108,6 +108,17 @@
 				document.LogoutForm.submit();
 			});
 		});
+		
+		moduleURL="[[@{/catergories}]]";
+		
+		$(document).ready(function()
+				{
+					$("#linkdelete").on("click", function(e) 
+					{
+						e.preventDefault();
+						showDeleteConfirmModal($(this), 'category');
+					});
+				});
 	</script>
 </body>
 </html>

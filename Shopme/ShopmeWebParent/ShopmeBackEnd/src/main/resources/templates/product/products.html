@@ -40,9 +40,6 @@
 					<a class="nav-link" th:href="@{/customers}">Customers</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" th:href="@{/shipping}">Shipping</a>
-				</li>
-				<li class="nav-item">
 					<a class="nav-link" th:href="@{/orders}">Orders</a>
 				</li>
 				<li class="nav-item">
@@ -52,7 +49,7 @@
 					<a class="nav-link" th:href="@{/settings}">Settings</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" data-toggle="dropdown"
+					<a class="nav-link dropdown-toggle" data-toggle="dropdown" th:href="@{/account}"
 					sec:authentication="principal.FullName"></a>
 					<div class="dropdown-menu">
 						<a class="dropdown-item" id="LogoutLink" href="">Logout</a>
@@ -88,11 +85,13 @@
 					<td>[[${product.ID}]]</td>
 					<td>[[${product.Name}]]</td>
 					<td>[[${product.category.name}]]</td>
-					<td></td>
+					<td>[[${product.enabled}]]</td>
 					<td>
-						<a class="fas fa-edit fa-2x icon-green" title="Edit this user">Edit</a> 
+						<a class="fas fa-edit fa-2x icon-green" th:href="@{'products/edit/' + ${product.ID}}" 
+						title="Edit this product">Edit</a> 
 						&nbsp; 
-						<a class="fas fa-edit fa-2x icon-blue"  title="Delete this user">Delete</a>
+						<a class="fas fa-edit fa-2x icon-blue"  th:href="@{'products/delete/' + ${product.ID}}" 
+						title="Delete this product">Delete</a>
 					</td>
 				</tr>
 			</tbody>

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 20, 2022 at 04:56 AM
+-- Generation Time: Aug 01, 2022 at 12:40 PM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 8.1.6
 
@@ -20,8 +20,6 @@ SET time_zone = "+00:00";
 --
 -- Database: `shopmedb`
 --
-CREATE DATABASE IF NOT EXISTS `shopmedb` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
-USE `shopmedb`;
 
 -- --------------------------------------------------------
 
@@ -29,7 +27,6 @@ USE `shopmedb`;
 -- Table structure for table `catergories`
 --
 
-DROP TABLE IF EXISTS `catergories`;
 CREATE TABLE `catergories` (
   `id` int(11) NOT NULL,
   `name` varchar(128) DEFAULT NULL,
@@ -44,15 +41,13 @@ INSERT INTO `catergories` (`id`, `name`, `parentid`) VALUES
 (1, 'Computers', NULL),
 (2, 'Electronics', NULL),
 (3, 'Desktops', 1),
-(4, 'Laptops', 1),
 (5, 'Computer Components', 1),
 (12, 'Central Processing Unit', 3),
-(13, 'Thumbdrive', 3),
 (14, 'Phone', 2),
 (15, 'iPhone', 14),
 (17, 'Samsung Phone', 14),
 (21, 'HardDrive', 5),
-(26, 'Asus', 1);
+(35, 'Laptop', 1);
 
 -- --------------------------------------------------------
 
@@ -60,32 +55,46 @@ INSERT INTO `catergories` (`id`, `name`, `parentid`) VALUES
 -- Table structure for table `products`
 --
 
-DROP TABLE IF EXISTS `products`;
 CREATE TABLE `products` (
   `id` int(11) NOT NULL,
+  `name` varchar(128) NOT NULL,
   `description` varchar(4096) DEFAULT NULL,
   `cost` float NOT NULL,
   `created_time` datetime(6) DEFAULT NULL,
+  `updated_time` datetime(6) DEFAULT NULL,
+  `main_image` varchar(255) DEFAULT NULL,
+  `catergory_id` int(11) DEFAULT NULL,
   `discount` float NOT NULL,
   `enabled` bit(1) NOT NULL,
-  `height` float NOT NULL,
   `in_stock` bit(1) DEFAULT NULL,
+  `height` float NOT NULL,
   `length` float NOT NULL,
-  `name` varchar(128) NOT NULL,
-  `updated_time` datetime(6) DEFAULT NULL,
   `weight` float NOT NULL,
   `width` float NOT NULL,
-  `catergory_id` int(11) DEFAULT NULL
+  `extra_image` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `products`
 --
 
-INSERT INTO `products` (`id`, `description`, `cost`, `created_time`, `discount`, `enabled`, `height`, `in_stock`, `length`, `name`, `updated_time`, `weight`, `width`, `catergory_id`) VALUES
-(1, NULL, 456, '2022-07-18 17:52:54.000000', 0, b'1', 0, b'1', 0, 'Samsung Galaxy A31', '2022-07-18 17:52:54.000000', 0, 0, 17),
-(2, NULL, 1056, '2022-07-18 17:56:02.000000', 0, b'1', 0, b'1', 0, 'Iphone 13 Pro MAX', '2022-07-18 17:56:02.000000', 0, 0, 15),
-(3, NULL, 852, '2022-07-18 22:58:07.000000', 0, b'1', 0, b'1', 0, 'Dell Laptop', '2022-07-18 22:58:07.000000', 0, 0, 1);
+INSERT INTO `products` (`id`, `name`, `description`, `cost`, `created_time`, `updated_time`, `main_image`, `catergory_id`, `discount`, `enabled`, `in_stock`, `height`, `length`, `weight`, `width`, `extra_image`) VALUES
+(1, 'Samsung Galaxy A80', '', 456, NULL, NULL, NULL, 17, 0, b'1', b'1', 0, 0, 0, 0, NULL),
+(2, 'Iphone 13 Pro MAX', NULL, 1056, '2022-07-18 17:56:02.000000', '2022-07-18 17:56:02.000000', '', 15, 0, b'1', b'1', 0, 0, 0, 0, ''),
+(3, 'Dell Laptop', NULL, 852, '2022-07-18 22:58:07.000000', '2022-07-18 22:58:07.000000', '', 1, 0, b'1', b'1', 0, 0, 0, 0, ''),
+(12, 'Lenovo Thinkpad S3', '', 835, '2022-07-29 21:43:26.000000', '2022-07-29 21:43:26.000000', NULL, 1, 10, b'1', b'1', 0, 0, 0, 0, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `product_images`
+--
+
+CREATE TABLE `product_images` (
+  `id` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `product_id` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -93,7 +102,6 @@ INSERT INTO `products` (`id`, `description`, `cost`, `created_time`, `discount`,
 -- Table structure for table `roles`
 --
 
-DROP TABLE IF EXISTS `roles`;
 CREATE TABLE `roles` (
   `ID` int(11) NOT NULL,
   `name` varchar(45) DEFAULT NULL,
@@ -117,7 +125,6 @@ INSERT INTO `roles` (`ID`, `name`, `descrption`) VALUES
 -- Table structure for table `users`
 --
 
-DROP TABLE IF EXISTS `users`;
 CREATE TABLE `users` (
   `ID` int(11) NOT NULL,
   `email` varchar(128) NOT NULL,
@@ -143,7 +150,6 @@ INSERT INTO `users` (`ID`, `email`, `enabled`, `first_name`, `last_name`, `passw
 -- Table structure for table `user_roles`
 --
 
-DROP TABLE IF EXISTS `user_roles`;
 CREATE TABLE `user_roles` (
   `user_id` int(11) NOT NULL,
   `role_id` int(11) NOT NULL
@@ -181,6 +187,13 @@ ALTER TABLE `products`
   ADD KEY `FKma7q1l2dfg3lt9k2ibq6wqm6x` (`catergory_id`);
 
 --
+-- Indexes for table `product_images`
+--
+ALTER TABLE `product_images`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `FKqnq71xsohugpqwf3c9gxmsuy` (`product_id`);
+
+--
 -- Indexes for table `roles`
 --
 ALTER TABLE `roles`
@@ -208,13 +221,19 @@ ALTER TABLE `user_roles`
 -- AUTO_INCREMENT for table `catergories`
 --
 ALTER TABLE `catergories`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
 
 --
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+
+--
+-- AUTO_INCREMENT for table `product_images`
+--
+ALTER TABLE `product_images`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `roles`
@@ -243,6 +262,12 @@ ALTER TABLE `catergories`
 --
 ALTER TABLE `products`
   ADD CONSTRAINT `FKma7q1l2dfg3lt9k2ibq6wqm6x` FOREIGN KEY (`catergory_id`) REFERENCES `catergories` (`id`);
+
+--
+-- Constraints for table `product_images`
+--
+ALTER TABLE `product_images`
+  ADD CONSTRAINT `FKqnq71xsohugpqwf3c9gxmsuy` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`);
 
 --
 -- Constraints for table `user_roles`

@@ -18,9 +18,6 @@ public class CatergoryController
 	@Autowired
 	protected CatergoryService service;
 	
-	@Autowired
-	private CatergoryRepository caterrepo;
-	
 	@GetMapping("/catergories")
 	public String listAll(Model model)
 	{

@@ -35,7 +35,7 @@ public class CatergoryService
 			for (Catergory subCategory : children)
 			{
 				String name = "--" + subCategory.getName();
-				hierarchicalCategories.add(Catergory.copyFull(rootCategory, name));
+				hierarchicalCategories.add(Catergory.copyFull(subCategory, name));
 				listSubHierarchicalCategories(hierarchicalCategories, subCategory , 1);
 			}
 		}

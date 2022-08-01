@@ -1,7 +1,10 @@
 package com.shopme.common.entity;
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,7 +12,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name = "products")
@@ -47,6 +52,15 @@ public class Product
 	protected float height;
 	
 	protected float weight;
+	
+	@Column(name="main_image")
+	protected String mainImage;
+	
+	@Column(name="extra_image")
+	protected String extraImage;
+	
+	@OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
+	protected Set<ProductImage> images = new HashSet<>();
 	
 	@ManyToOne
 	@JoinColumn(name = "catergory_id")
@@ -201,5 +215,53 @@ public class Product
 	public String toString() 
 	{
 		return "Product [ID=" + ID + ", name=" + name + "]";
+	}
+
+	
+	public String getMainImage() 
+	{
+		return mainImage;
+	}
+
+	public void setMainImage(String mainImage) 
+	{
+		this.mainImage = mainImage;
+	}
+
+	public Set<ProductImage> getImages() 
+	{
+		return images;
+	}
+
+	public void setImages(Set<ProductImage> images) 
+	{
+		this.images = images;
+	}
+
+	public void addExtraimages(String imagename)
+	{
+		this.images.add(new ProductImage(imagename , this));
+	}
+	
+	@Transient
+	public String getMainImagePath()
+	{
+		if (ID == 0 || mainImage == null)
+		{
+			return "/images/image-thumbnail.png";
+		}
+		
+		return "/product-images/" + this.ID + "/" + this.mainImage;
+	}
+	
+	@Transient
+	public String getExtraImagePath()
+	{
+		if (ID == 0 || extraImage == null)
+		{
+			return "/images/image_thumbnail_blue.png";
+		}
+		
+		return "/product-images/" + this.ID + "/" + this.extraImage;
 	}
 }

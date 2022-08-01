@@ -18,6 +18,5 @@ public interface CatergoryRepository extends PagingAndSortingRepository<Catergor
 	public Catergory findByName(@Param("name") String categoryname);
 	
 	public Long countByID(int ID);
-	
 }
 

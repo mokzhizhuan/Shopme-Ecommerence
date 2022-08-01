@@ -27,6 +27,11 @@ public class UserService
 		return(List<User>) userrepo.findAll();
 	}
 	
+	public User getbyEmail(String email)
+	{
+		return userrepo.getUserbyEmail(email);
+	}
+	
 	public List<Role> listallrole()
 	{
 		return (List<Role>) rolerepo.findAll();

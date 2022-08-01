@@ -12,6 +12,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name = "catergories")
@@ -31,6 +32,9 @@ public class Catergory
 	@OneToMany(mappedBy = "parent")
 	protected Set<Catergory> childcater = new HashSet<>();
 
+	@Transient
+	protected boolean hasChild;
+	
 	public Catergory(String name) 
 	{
 		this.name = name;
@@ -70,7 +74,7 @@ public class Catergory
 		Catergory copycategory = new Catergory();
 		copycategory.setID(category.getID());
 		copycategory.setName(category.getName());
-		
+		copycategory.setHasChild(category.getChildcater().size() > 0);
 		
 		return copycategory;
 	}
@@ -131,5 +135,14 @@ public class Catergory
 		this.childcater = childcater;
 	}
 	
+	public boolean isHasChild()
+	{
+		return hasChild;
+	}
+	
+	public void setHasChild(boolean haschild)
+	{
+		this.hasChild = haschild;
+	}
 	
 }

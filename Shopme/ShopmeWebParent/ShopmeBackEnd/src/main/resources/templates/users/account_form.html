@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html"; charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
-<title>Shopme Admin Control Panel</title>
+<title>Account Details</title>
 <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" />
 <script type ="text/javascript" th:src="@{/webjars/jquery/jquery.min.js}"></script>
 <script type ="text/javascript" th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
@@ -60,9 +60,9 @@
 	</nav>
 </div>
 <div>
-	<h2>Manage User - [[${PageTitle}]]</h2>
+	<h2>Account Details</h2>
 	</div>
-		<form th:action="@{/users/save}" method="post" style="width: 900px; margin: 0 auto" th:object="${user}" onsubmit="return checkEmailUnique(this);">
+		<form th:action="@{/users/save}" method="post" style="width: 900px; margin: 0 auto" th:object="${user}">
 		<input type="hidden" th:field="*{ID}"/>
 		<input type="hidden" name="_csrf" th:if="${user.ID == null}" value="b67be1ab-ccfc-4074-892d-b87dc490d256" />
 		<div class ="border border-secondary rounded p-3">
@@ -99,13 +99,7 @@
 			<div class="form-group row">
 			<label class="col-sm-4 col-form-label">Roles</label>
 			<div class="col-sm-8">
-				<th:block th:each="role : ${listRoles}">
-				<input type="checkbox" th:field="*{roles}"
-					th:text="${role.name}"
-					th:value="${role.ID}"
-				/>
-				&nbsp; : &nbsp;
-				<small>[[${role.descrption}]]</small>
+					[[${user.roles}]]</small>
 				<br/>
 				</th:block>
 			</div>
@@ -136,28 +130,6 @@
 				window.location = "[[@{/users}]]";
 			});
 		});
-		
-		function checkEmailUnique(form)
-		{
-			url = "[[@{/checkemail}]]";
-			userEmail = $("#email").val();
-			csrf = $("input[name='_csrf']").val();
-			params = {email: userEmail, _csrf: csrf};
-			
-			$.post(url, params, function(response) 
-			{
-				if (response == "OK")
-				{
-					form.submit();
-				}
-				else if(response == "Duplicated")
-				{
-					alert("There is another user using this email : " + userEmail + " .  Please type again");
-				}
-			});
-			
-			return false;
-		}
 		$(document).ready(function()
 		{
 			$("#LogoutLink").on("click", function(e) 
