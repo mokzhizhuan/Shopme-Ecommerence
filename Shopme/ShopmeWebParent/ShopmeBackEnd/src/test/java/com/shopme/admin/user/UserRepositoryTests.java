@@ -8,6 +8,7 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase.Replace;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.test.annotation.Rollback;
 
 import com.shopme.common.entity.Role;
@@ -31,7 +32,11 @@ public class UserRepositoryTests
 		Role roleAdmin = entityManager.find(Role.class, 1);
 		User userMZZ = new User("gamerdark44@outlook.com", "Mok" , "Zhi Zhuan", "adsj532$32%32&t");
 		userMZZ.addRole(roleAdmin);
-		
+		userMZZ.setEnabled(true);
+		String password = userMZZ.getPassword();
+		BCryptPasswordEncoder passwordEncode = new BCryptPasswordEncoder();
+		String encodepass = passwordEncode.encode(password);
+		userMZZ.setPassword(encodepass);
 		User saveduser = repo.save(userMZZ);
 		assertThat(saveduser.getID()).isGreaterThan(0);
 	}
@@ -42,19 +47,29 @@ public class UserRepositoryTests
 		Role roleeditor = entityManager.find(Role.class, 3);
 		User userTan = new User("spiraldark44@outlook.com", "Tan" , "Hock Seng", "d5321d6");
 		userTan.addRole(roleeditor);
+		userTan.setEnabled(true);
+		String password = userTan.getPassword();
+		BCryptPasswordEncoder passwordEncode = new BCryptPasswordEncoder();
+		String encodepass = passwordEncode.encode(password);
+		userTan.setPassword(encodepass);
 		
 		User saveduser = repo.save(userTan);
 		assertThat(saveduser.getID()).isGreaterThan(0);
 		
 		Role roleassistant = entityManager.find(Role.class, 5);
 		User userJohn = new User("spiralsdark44@outlook.com", "John" , "Pulver", "t5321d6");
-		userTan.addRole(roleassistant);
+		userJohn.addRole(roleassistant);
+		userJohn.setEnabled(true);
+		String passwordj = userJohn.getPassword();
+		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+		String encodepassrt = passwordEncoder.encode(password);
+		userJohn.setPassword(encodepassrt);
 		
 		User savedusers = repo.save(userJohn);
 		assertThat(savedusers.getID()).isGreaterThan(0);
 	}
 	
-	@Test
+	/*@Test
 	public void testListAllUsers()
 	{
 		Iterable<User> listUsers = repo.findAll();
@@ -76,5 +91,5 @@ public class UserRepositoryTests
 		User user = repo.getUserbyEmail(email);
 		
 		assertThat(user).isNotNull();
-	}
+	}*/
 }

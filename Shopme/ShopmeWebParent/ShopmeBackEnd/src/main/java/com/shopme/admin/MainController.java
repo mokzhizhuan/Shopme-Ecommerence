@@ -12,10 +12,4 @@ public class MainController
 	{
 		return "index";
 	}
-	
-	@GetMapping("/login")
-	public String viewloginPage()
-	{
-		return "login";
-	}
 }
