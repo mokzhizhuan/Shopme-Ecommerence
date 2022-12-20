@@ -13,10 +13,10 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.shopme.common.entity.Category;
 
 @Controller
-public class CatergoryController 
+public class CategoryController 
 {
 	@Autowired
-	protected CatergoryService service;
+	protected CategoryService service;
 	
 	@GetMapping("/catergories")
 	public String listAll(Model model)

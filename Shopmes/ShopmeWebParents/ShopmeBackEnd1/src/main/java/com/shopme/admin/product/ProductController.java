@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.shopme.admin.catergories.CatergoryService;
+import com.shopme.admin.catergories.CategoryService;
 import com.shopme.common.entity.Category;
 import com.shopme.common.entity.Product;
 
@@ -21,7 +21,7 @@ public class ProductController
 	private ProductService productservice;
 	
 	@Autowired
-	private CatergoryService categoryservice;
+	private CategoryService categoryservice;
 	
 	@GetMapping("/products")
 	public String listAll(Model model)

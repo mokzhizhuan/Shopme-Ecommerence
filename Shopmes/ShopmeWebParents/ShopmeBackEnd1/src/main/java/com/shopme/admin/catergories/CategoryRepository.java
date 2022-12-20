@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 import com.shopme.common.entity.Category;
 
 @Repository
-public interface CatergoryRepository extends PagingAndSortingRepository<Category, Integer>	
+public interface CategoryRepository extends PagingAndSortingRepository<Category, Integer>	
 {
 	@Query("Select c FROM Catergory c WHERE c.parent.id is NULL")
 	public List<Category> findRootCatergories();

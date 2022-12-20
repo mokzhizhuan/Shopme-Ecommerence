@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class CategoryRestController 
 {
 	@Autowired
-	protected CatergoryService service;
+	protected CategoryService service;
 	
 	@PostMapping("/catergories/check_unique")
 	public String checkUnique(@Param("name") String name)

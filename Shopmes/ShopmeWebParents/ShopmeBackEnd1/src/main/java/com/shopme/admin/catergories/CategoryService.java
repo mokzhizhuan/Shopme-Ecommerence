@@ -11,10 +11,10 @@ import java.util.NoSuchElementException;
 import java.util.Set;
 
 @Service
-public class CatergoryService 
+public class CategoryService 
 {
 	@Autowired
-	private CatergoryRepository caterrepo;
+	private CategoryRepository caterrepo;
 	
 	public List<Category> listAll()
 	{
