@@ -64,7 +64,7 @@ public class Product
 	
 	@ManyToOne
 	@JoinColumn(name = "catergory_id")
-	protected Catergory category;
+	protected Category category;
 
 	public int getID() 
 	{
@@ -201,12 +201,12 @@ public class Product
 		this.weight = weight;
 	}
 
-	public Catergory getCategory() 
+	public Category getCategory() 
 	{
 		return category;
 	}
 
-	public void setCategory(Catergory category) 
+	public void setCategory(Category category) 
 	{
 		this.category = category;
 	}

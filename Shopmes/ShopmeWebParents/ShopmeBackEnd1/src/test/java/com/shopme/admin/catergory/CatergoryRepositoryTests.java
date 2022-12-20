@@ -13,7 +13,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.annotation.Rollback;
 
 import com.shopme.admin.catergories.CatergoryRepository;
-import com.shopme.common.entity.Catergory;
+import com.shopme.common.entity.Category;
 
 
 @DataJpaTest
@@ -27,8 +27,8 @@ public class CatergoryRepositoryTests
 	@Test
 	public void testCatergoryCreateRootCatergory()
 	{
-		Catergory catergory = new Catergory("Electronics");
-		Catergory savedCatergory = caterrepo.save(catergory);
+		Category catergory = new Category("Electronics");
+		Category savedCatergory = caterrepo.save(catergory);
 		
 		assertThat(savedCatergory.getID()).isGreaterThan(0);
 	}
@@ -36,9 +36,9 @@ public class CatergoryRepositoryTests
 	@Test
 	public void testCatergoryCreateSubCatergory()
 	{
-		Catergory parent = new Catergory(1);
-		Catergory laptops = new Catergory("Laptops" , parent);
-		Catergory componments = new Catergory("Computer Components" , parent);
+		Category parent = new Category(1);
+		Category laptops = new Category("Laptops" , parent);
+		Category componments = new Category("Computer Components" , parent);
 		
 		caterrepo.saveAll(List.of(laptops, componments));
 	}
@@ -46,13 +46,13 @@ public class CatergoryRepositoryTests
 	@Test
 	public void testGetCatergory()
 	{
-		Catergory catergory = caterrepo.findById(1).get();
+		Category catergory = caterrepo.findById(1).get();
 		
 		System.out.println(catergory.getName());
 		
-		Set<Catergory> childcater = catergory.getChildcater();
+		Set<Category> childcater = catergory.getChildcater();
 		
-		for (Catergory subCatergory : childcater)
+		for (Category subCatergory : childcater)
 		{
 			System.out.println(subCatergory.getName());
 		}
@@ -63,7 +63,7 @@ public class CatergoryRepositoryTests
 	@Test
 	public void testListRootCategory()
 	{
-		List<Catergory> rootCatergories = caterrepo.findRootCatergories();
+		List<Category> rootCatergories = caterrepo.findRootCatergories();
 		rootCatergories.forEach(cat -> System.out.println(cat.getName()));
 	}
 }

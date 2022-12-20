@@ -12,7 +12,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.test.annotation.Rollback;
 
-import com.shopme.common.entity.Catergory;
+import com.shopme.common.entity.Category;
 import com.shopme.common.entity.Product;
 
 @DataJpaTest
@@ -29,7 +29,7 @@ public class ProductRepositoryTests
 	@Test
 	public void testCreateProduct()
 	{
-		Catergory category = entityManager.find(Catergory.class, 1);
+		Category category = entityManager.find(Category.class, 1);
 		
 		Product product = new Product();
 		

@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.shopme.admin.catergories.CatergoryService;
-import com.shopme.common.entity.Catergory;
+import com.shopme.common.entity.Category;
 import com.shopme.common.entity.Product;
 
 @Controller
@@ -34,7 +34,7 @@ public class ProductController
 	@GetMapping("/products/new")
 	public String newProduct(Model model)
 	{
-		List<Catergory> listCategory = categoryservice.listAll();
+		List<Category> listCategory = categoryservice.listAll();
 		
 		Product product = new Product();
 		
@@ -95,7 +95,7 @@ public class ProductController
 		try
 		{
 			Product product = productservice.get(ID);
-			List<Catergory> listCategory = categoryservice.listAll();
+			List<Category> listCategory = categoryservice.listAll();
 			
 			String title = "Edit Product (ID: " + ID + ")";
 			model.addAttribute("product", product);

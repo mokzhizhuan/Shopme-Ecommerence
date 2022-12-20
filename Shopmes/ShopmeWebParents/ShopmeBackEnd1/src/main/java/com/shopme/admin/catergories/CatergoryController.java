@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.shopme.common.entity.Catergory;
+import com.shopme.common.entity.Category;
 
 @Controller
 public class CatergoryController 
@@ -21,7 +21,7 @@ public class CatergoryController
 	@GetMapping("/catergories")
 	public String listAll(Model model)
 	{
-		List<Catergory> listCategories = service.listAll();
+		List<Category> listCategories = service.listAll();
 		model.addAttribute("listCategories",listCategories);
 		return "categories/catergories";
 	}
@@ -29,8 +29,8 @@ public class CatergoryController
 	@GetMapping("/catergories/new")
 	public String newcategories(Model model)
 	{
-		List<Catergory> listCategories = service.listCategoriesUsedInForm();
-		model.addAttribute("catergory",new Catergory());
+		List<Category> listCategories = service.listCategoriesUsedInForm();
+		model.addAttribute("catergory",new Category());
 		String title = "Create new Category";
 		model.addAttribute("PageTitle",title);
 		model.addAttribute("listCategories", listCategories);
@@ -38,7 +38,7 @@ public class CatergoryController
 	}
 	
 	@PostMapping("/catergories/save")
-	public String savenewCategory(Catergory category, RedirectAttributes redirect, int ID)
+	public String savenewCategory(Category category, RedirectAttributes redirect, int ID)
 	{
 		System.out.println(category);
 		category.setID(category.getID());
@@ -54,9 +54,9 @@ public class CatergoryController
 	{
 		try
 		{
-			Catergory category = service.get(ID);
+			Category category = service.get(ID);
 			String title = "Edit Category (ID : " + ID + ")";
-			List<Catergory> listCategories = service.listCategoriesUsedInForm();
+			List<Category> listCategories = service.listCategoriesUsedInForm();
 			
 			model.addAttribute("category", category);
 			model.addAttribute("listCategories",listCategories);

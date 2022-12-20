@@ -3,7 +3,7 @@ package com.shopme.admin.catergories;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.shopme.common.entity.Catergory;
+import com.shopme.common.entity.Category;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,26 +16,26 @@ public class CatergoryService
 	@Autowired
 	private CatergoryRepository caterrepo;
 	
-	public List<Catergory> listAll()
+	public List<Category> listAll()
 	{
-		List<Catergory> RootCategories = caterrepo.findRootCatergories();
+		List<Category> RootCategories = caterrepo.findRootCatergories();
 		return ListHierarchicalCategories(RootCategories);
 	}
 	
-	private List<Catergory> ListHierarchicalCategories(List<Catergory> RootCategories)
+	private List<Category> ListHierarchicalCategories(List<Category> RootCategories)
 	{
-		List<Catergory> hierarchicalCategories = new ArrayList<>();
+		List<Category> hierarchicalCategories = new ArrayList<>();
 		
-		for (Catergory rootCategory : RootCategories)
+		for (Category rootCategory : RootCategories)
 		{
-			hierarchicalCategories.add(Catergory.copyFull(rootCategory));
+			hierarchicalCategories.add(Category.copyFull(rootCategory));
 			
-			Set<Catergory> children = rootCategory.getChildcater();
+			Set<Category> children = rootCategory.getChildcater();
 			
-			for (Catergory subCategory : children)
+			for (Category subCategory : children)
 			{
 				String name = "--" + subCategory.getName();
-				hierarchicalCategories.add(Catergory.copyFull(subCategory, name));
+				hierarchicalCategories.add(Category.copyFull(subCategory, name));
 				listSubHierarchicalCategories(hierarchicalCategories, subCategory , 1);
 			}
 		}
@@ -43,13 +43,13 @@ public class CatergoryService
 		return hierarchicalCategories;
 	}
 
-	private void listSubHierarchicalCategories(List<Catergory> hierarchicalCategories, 
-			Catergory parent, int sublevel)
+	private void listSubHierarchicalCategories(List<Category> hierarchicalCategories, 
+			Category parent, int sublevel)
 	{
-		Set<Catergory> children = parent.getChildcater();
+		Set<Category> children = parent.getChildcater();
 		int newSublevel = sublevel + 1;
 		
-		for (Catergory subCategory : children)
+		for (Category subCategory : children)
 		{
 			String name = "";
 			for(int i = 0; i < newSublevel; i++)
@@ -58,13 +58,13 @@ public class CatergoryService
 			}
 			name += subCategory.getName();
 			
-			hierarchicalCategories.add(Catergory.copyFull(subCategory, name));
+			hierarchicalCategories.add(Category.copyFull(subCategory, name));
 			
 			listSubHierarchicalCategories(hierarchicalCategories, subCategory , newSublevel);
 		}
 	}
 	
-	public Catergory save(Catergory category) 
+	public Category save(Category category) 
 	{
 		String idtest = Integer.toString(category.getID());
 		boolean update = (idtest != null);
@@ -75,23 +75,23 @@ public class CatergoryService
 		return caterrepo.save(category);
 	}
 	
-	public List<Catergory> listCategoriesUsedInForm() 
+	public List<Category> listCategoriesUsedInForm() 
 	{
-		List<Catergory> categoriesInUsedForm = new ArrayList<>();
-		Iterable<Catergory> categoriesinDB = caterrepo.findAll(); 
+		List<Category> categoriesInUsedForm = new ArrayList<>();
+		Iterable<Category> categoriesinDB = caterrepo.findAll(); 
 		
-		for (Catergory category : categoriesinDB)
+		for (Category category : categoriesinDB)
 		{
 			if(category.getParent() == null)
 			{
 				System.out.println(category.getName());
 				
-				Set <Catergory> children = category.getChildcater();
+				Set <Category> children = category.getChildcater();
 				
-				for (Catergory subCategory : children)
+				for (Category subCategory : children)
 				{
 					String name = "--" + subCategory.getName();
-					categoriesInUsedForm.add(new Catergory(name));
+					categoriesInUsedForm.add(new Category(name));
 					listSubCategoriesInForm(categoriesInUsedForm, subCategory, 1);
 				}
 			}
@@ -100,24 +100,24 @@ public class CatergoryService
 		return categoriesInUsedForm;
 	}
 
-	private void listSubCategoriesInForm(List<Catergory> categoriesInUsedForm , Catergory parent, int sublevel) 
+	private void listSubCategoriesInForm(List<Category> categoriesInUsedForm , Category parent, int sublevel) 
 	{
 		int newsublevel = sublevel + 1;
-		Set <Catergory> children = parent.getChildcater();
-		for (Catergory subCategory : children)
+		Set <Category> children = parent.getChildcater();
+		for (Category subCategory : children)
 		{
 			String name = "";
 			for(int i = 0 ; i < newsublevel; i++)
 			{
 				name += "--";
 			}
-			categoriesInUsedForm.add(new Catergory(name));
+			categoriesInUsedForm.add(new Category(name));
 			
 			listSubCategoriesInForm(categoriesInUsedForm , subCategory, newsublevel);
 		}
 	}
 	
-	public Catergory get(int ID) throws CategoryNotFoundException
+	public Category get(int ID) throws CategoryNotFoundException
 	{
 		try
 		{
@@ -132,7 +132,7 @@ public class CatergoryService
 	public String checkUnique(String categoryname) 
 	{
 				
-		Catergory categoryBYName = caterrepo.findByName(categoryname);
+		Category categoryBYName = caterrepo.findByName(categoryname);
 		if (categoryBYName != null)
 		{
 			return "DuplicatedName";

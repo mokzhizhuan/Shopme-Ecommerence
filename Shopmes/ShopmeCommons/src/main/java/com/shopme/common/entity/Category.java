@@ -16,7 +16,7 @@ import javax.persistence.Transient;
 
 @Entity
 @Table(name = "catergories")
-public class Catergory 
+public class Category 
 {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,51 +27,51 @@ public class Catergory
 	
 	@OneToOne
 	@JoinColumn(name = "parentid")
-	protected Catergory parent;
+	protected Category parent;
 	
 	@OneToMany(mappedBy = "parent")
-	protected Set<Catergory> childcater = new HashSet<>();
+	protected Set<Category> childcater = new HashSet<>();
 
 	@Transient
 	protected boolean hasChild;
 	
-	public Catergory(String name) 
+	public Category(String name) 
 	{
 		this.name = name;
 	}
 	
 
-	public Catergory() 
+	public Category() 
 	{
 		
 	}
 
-	public Catergory(int id) 
+	public Category(int id) 
 	{
 		this.ID = id;
 	}
 
-	public static Catergory copyIDANDNAME(Catergory category)
+	public static Category copyIDANDNAME(Category category)
 	{
-		Catergory copycategory = new Catergory();
+		Category copycategory = new Category();
 		copycategory.setID(category.getID());
 		copycategory.setName(category.getName());
 		
 		return copycategory;
 	}
 	
-	public static Catergory copyIDANDNAME(int ID , String name)
+	public static Category copyIDANDNAME(int ID , String name)
 	{
-		Catergory copycategory = new Catergory();
+		Category copycategory = new Category();
 		copycategory.setID(ID);
 		copycategory.setName(name);
 		
 		return copycategory;
 	}
 	
-	public static Catergory copyFull(Catergory category)
+	public static Category copyFull(Category category)
 	{
-		Catergory copycategory = new Catergory();
+		Category copycategory = new Category();
 		copycategory.setID(category.getID());
 		copycategory.setName(category.getName());
 		copycategory.setHasChild(category.getChildcater().size() > 0);
@@ -79,9 +79,9 @@ public class Catergory
 		return copycategory;
 	}
 	
-	public static Catergory copyFull(Catergory category, String name)
+	public static Category copyFull(Category category, String name)
 	{
-		Catergory copycategory = new Catergory();
+		Category copycategory = new Category();
 		copycategory.setID(category.getID());
 		copycategory.setName(name);
 		
@@ -89,7 +89,7 @@ public class Catergory
 		return copycategory;
 	}
 	
-	public Catergory(String name, Catergory parent) 
+	public Category(String name, Category parent) 
 	{
 		this(name);
 		this.parent = parent;
@@ -115,22 +115,22 @@ public class Catergory
 		this.name = name;
 	}
 
-	public Catergory getParent() 
+	public Category getParent() 
 	{
 		return parent;
 	}
 
-	public void setParent(Catergory parent) 
+	public void setParent(Category parent) 
 	{
 		this.parent = parent;
 	}
 
-	public Set<Catergory> getChildcater() 
+	public Set<Category> getChildcater() 
 	{
 		return childcater;
 	}
 
-	public void setChildcater(Set<Catergory> childcater) 
+	public void setChildcater(Set<Category> childcater) 
 	{
 		this.childcater = childcater;
 	}
