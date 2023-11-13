@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta http-equiv="Conten-Type" content="text/html"; charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0">
+	
+	<title>Home - ShopmeAdmin Control Panel</title>
+	
+	<link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" />
+	<link rel="stylesheet" type="text/css" th:href="@{/fontawesome/all.css}" />
+	<script type="text/javascript" th:src="@{/webjars/jquery/jquery.min.js}"></script>
+	<script type="text/javascript" th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+</head>
+<body>
+	<div id="container-fluid">
+		<div>
+			<nav class="navbar navbar-expand-lg bg-dark navbar-dark">
+				<a class="navbar-brand" th:href=@{/}>
+					<img th:src="@{/images/ShopmeAdminSmall.png}"/>
+				</a>
+				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#topNavbar">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<div class="collapse navbar-collapse" id="topNavbar">
+					<ul class="navbar-nav">
+						<li class="nav-item">
+							<a class="nav-link" th:href="@{/users}">Users</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" th:href="@{/categories}">Categories</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" th:href="@{/brand}">Brand</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" th:href="@{/product}">Product</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" th:href="@{/customers}">Customers</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" th:href="@{/shipping}">Shipping</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" th:href="@{/orders}">Orders</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" th:href="@{/sales}">Sales Report</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" th:href="@{/article}">Article</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" th:href="@{/menu}">Menu</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" th:href="@{/setting}">Setting</a>
+						</li>
+					</ul>
+				</div>
+			</nav>
+		</div>
+		
+		<div>
+			<h2>Manage Products</h2>
+			<a th:href="@{/product/new}">Create New Product</a>
+		</div>
+		
+		<div th:if="${message != null}" class="alert alert-success text-center">
+			[[${message}]]	
+		</div>
+		
+		<div>
+			<table class="table table-bordered table-striped table-hover table-responsive-xl">
+				<thead class="table table-dark">
+					<tr>
+						<th>Product ID</th>
+						<th>Main Image</th>
+						<th>Name</th>
+						<th>Category</th>
+						<th>Enabled</th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="product : ${listProducts}">
+						<td >[[${product.id}]]</td>
+						<td width="250"><img th:if="${product.mainImage == null}" th:src="@{/image-portrait-solid.svg}" width="150" height="200">
+						<img th:if="${product.mainImage  != null}" th:src="@{${product.photosImagePath}}" width="50%" height="50%"></td>
+						<td width="150">[[${product.name}]]</td>
+						<td>
+							[[${product.category.name}]]
+						</td>
+						<td><a th:if="${product.enabled == true}" th:href="@{'/product/' + ${product.id} + '/enabled/false'}" title="Disable Product">
+							<img th:src="@{/circle-check-solid.png}" width="50" height="50">
+							</a>
+						<a th:if="${product.enabled == false}" th:href="@{'/product/' + ${product.id} + '/enabled/true'}" title="Enable Product">
+							<img th:src="@{/circle-check-solid-black.svg}" width="50" height="50">
+							</a></td>
+						<td>
+							<a class="link-detail" th:href="@{'/product/detail/' + ${product.id}}"
+							title="View Details of this product"><img th:src="@{/book-solid.svg}"></a>
+							<a class="nav-link" th:href="@{'/product/edit/' + ${product.id}}" title="Edit Product">
+								<img th:src="@{/pen-to-square-solid.svg}">
+								</a> &nbsp;&nbsp; 
+							<a class="nav-link"  th:href="@{'/product/delete/' + ${product.id}}" title="Delete Products">
+								<img th:src="@{/trash-solid.svg}"></a>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<div class="modal fade" id="detailModal">
+			<div class="modal-dialog modal-xl">
+				<div class="modal-content"></div>
+			</div>
+		</div>
+		<div>
+			<p>Shopme Control Panel - Copyright &copy; Shopme</p>
+		</div>
+	</div>
+	<script type="text/javascript">
+		$(".link-detail").on("click", function (e) {
+				e.preventDefault();
+				linkDetailURL = $(this).attr("href");
+				$("#detailModal").modal("show").find(".modal-content").load(linkDetailURL);
+			});
+
+	</script>
+</body>
+</html>

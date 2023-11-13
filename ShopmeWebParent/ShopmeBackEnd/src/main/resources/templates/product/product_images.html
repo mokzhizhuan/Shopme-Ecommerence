@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<div th:fragment="content" th:remove="tag">
+	<div class="row">
+		<div class="col border m-3 p-2">
+			<div><label>Main Image :</label></div>
+			<div class="m-2">
+				<img id="thumbnail" alt="Main image preview" class="img-fluid" th:src"@{${product.mainImagePath}}" />
+			</div>
+		</div>
+		<div>
+			<input type="file" id="fileImage" name="fileImage" required accept="image/png, image/jpeg" />
+		</div>
+	</div>
+	<div class="col border m-3 p-2">
+			<div><label>Extra Image :</label></div>
+			<div class="m-2">
+				<img id="extrathumbnail" alt="Extra image preview" class="img-fluid" th:src"@{/image-thumbnail.png}" />
+			</div>
+		</div>
+		<div>
+			<input type="file" id="extraImage" name="extraImage" required accept="image/png, image/jpeg" />
+		</div>
+	</div>
+	</div>
+</body>
+</html>
