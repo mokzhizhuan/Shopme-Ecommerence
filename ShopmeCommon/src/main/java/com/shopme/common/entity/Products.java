@@ -65,6 +65,10 @@ public class Products {
 	private float weight;
 	
 	@ManyToOne
+	@JoinColumn(name = "brand_id")
+	private Brands brand;
+	
+	@ManyToOne
 	@JoinColumn(name = "category_id")
 	private Category category;
 	
@@ -185,6 +189,14 @@ public class Products {
 	public void setWeight(float weight) {
 		this.weight = weight;
 	}
+	
+	public Brands getBrand() {
+		return brand;
+	}
+
+	public void setBrand(Brands brand) {
+		this.brand = brand;
+	}
 
 	public Category getCategory() {
 		return category;
@@ -193,7 +205,7 @@ public class Products {
 	public void setCategory(Category category) {
 		this.category = category;
 	}
-
+	
 	public float getPrice() {
 		return price;
 	}

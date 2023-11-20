@@ -126,12 +126,6 @@ public class Category {
 	public void setChildren(Set<Category> children) {
 		this.children = children;
 	}
-
-	@Override
-	public String toString() {
-		return "Category [id=" + id + ", name=" + name + ", alias=" + alias + ", image=" + image + ", enabled="
-				+ enabled + ", parent=" + parent + ", children=" + children + "]";
-	}
 	
 	@Transient
 	public String getPhotosImagePath()

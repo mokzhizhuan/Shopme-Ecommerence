@@ -54,7 +54,6 @@ public class Brands
 	}
 
 	public Brands(Integer id, String name, String logo, Set<Category> categories) {
-		super();
 		this.id = id;
 		this.name = name;
 		this.logo = logo;

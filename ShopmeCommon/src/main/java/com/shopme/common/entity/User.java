@@ -29,7 +29,7 @@ public class User {
 	@Column(length = 128, nullable = false, unique = true)
 	private String email;
 	
-	@Column(length = 64, nullable = false, unique = true)
+	@Column(length = 64, nullable = false)
 	private String password;
 	
 	@Column(name = "first_name", length = 45, nullable = false)
@@ -137,7 +137,7 @@ public class User {
 		return "User [id=" + id + ", email=" + email + ", password=" + password + ", firstName=" + firstName
 				+ ", lastName=" + lastName + ", photos=" + photos + ", enabled=" + enabled + ", roles=" + roles + "]";
 	}
-	
+
 	@Transient
 	public String getPhotosImagePath()
 	{
@@ -147,6 +147,11 @@ public class User {
 		}
 		
 		return "/user-photos/" + this.id + "/" + this.photos;
+	}
+	
+	@Transient
+	public String getFullName() {
+		return firstName + " " + lastName;
 	}
 
 	public boolean hasRole(String roleName) {

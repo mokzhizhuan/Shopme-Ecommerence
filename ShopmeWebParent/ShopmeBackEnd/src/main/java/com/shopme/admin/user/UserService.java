@@ -46,23 +46,42 @@ public class UserService
 			}
 			else
 			{
-				encodePassword(user);
+				//encodePassword(user);
 			}
 		}
 		else
 		{
-			encodePassword(user);
+			//encodePassword(user);
 		}
 		
-		encodePassword(user);
+		//encodePassword(user);
 		return Userrepo.save(user);
 	}
+	
+	public User updateAccount(User userInForm)
+	{
+		User userinDB = Userrepo.findById(userInForm.getId()).get();
+		
+		if(!userInForm.getPassword().isEmpty())
+		{
+			userinDB.setPassword(userInForm.getPassword());
+		}
+		
+		if(userInForm.getPhotos() != null)
+		{
+			userinDB.setPassword(userInForm.getPhotos());
+		}
+		
+		userinDB.setFirstName(userInForm.getFirstName());
+		
+		return Userrepo.save(userinDB);
+	}
 
-	private void encodePassword(User user)
+	/*private void encodePassword(User user)
 	{
 		String encodepassword = passwordEncoder.encode(user.getPassword());
 		user.setPassword(encodepassword);
-	}
+	}*/
 
 	public boolean isEmailUnique(Integer id, String email) {
 		User userbyEmail = Userrepo.getUserByEmail(email);
@@ -110,5 +129,10 @@ public class UserService
 	public void updateEnabledStatus(Integer id , boolean enabled)
 	{
 		Userrepo.updateEnabledStatus(id, enabled);
+	}
+
+	public User getbyEmail(String email) {
+		// TODO Auto-generated method stub
+		return Userrepo.getUserByEmail(email);
 	}
 }

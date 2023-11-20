@@ -19,6 +19,17 @@
 						<input type="text" class="form-control" th:field="*{ailas}" minlength="3" maxlength="256"  />
 					</div>
 				</div>
+				<div class="form-group row">
+						<label class="col-sm-4 col-form-label">Brand:</label>
+						<div class="col-sm-8">
+						<select class="form-control" th:field="*{brand}">
+							<option value="0">[No Brand]</option>
+							<th:block th:each="brand : ${listbrands}">
+								<option th:value="${brand.id}">[[${brand.name}]]</option>
+							</th:block>
+						</select>
+					</div>
+				</div>
 			<div class="form-group row">
 			<label class="col-sm-4 col-form-label">Categories:</label>
 			<div class="col-sm-8">

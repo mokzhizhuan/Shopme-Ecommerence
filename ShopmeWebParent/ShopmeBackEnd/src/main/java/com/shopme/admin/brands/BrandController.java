@@ -46,9 +46,9 @@ public class BrandController {
 	{
 		List<Category> listCategory = catservice.listAll();
 		
+		model.addAttribute("listCategories", listCategory);
 		Brands brand = new Brands();
 		model.addAttribute("brand", brand);
-		model.addAttribute("listCategories", listCategory);
 		model.addAttribute("pageTitle", "Create New Brand");
 		return "brand_form";
 	}

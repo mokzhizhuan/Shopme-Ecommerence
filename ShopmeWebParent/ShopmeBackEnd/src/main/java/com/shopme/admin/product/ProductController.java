@@ -16,6 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.shopme.admin.FileUploadUtil;
+import com.shopme.admin.brands.BrandService;
 import com.shopme.admin.category.CategoryNotFoundException;
 import com.shopme.admin.category.CategoryService;
 import com.shopme.common.entity.Brands;
@@ -30,6 +31,9 @@ public class ProductController {
 	
 	@Autowired
 	private CategoryService catservice;
+	
+	@Autowired
+	private BrandService brandservice;
 	
 	@GetMapping("/product")
 	public String listAll(Model model)
@@ -49,8 +53,10 @@ public class ProductController {
 		product.setEnabled(true);
 		product.setInStock(true);
 		List<Category> listCategory = catservice.listAll();
+		List<Brands> listBrand = brandservice.ListAll();
 		model.addAttribute("product", product);
 		model.addAttribute("listCategories", listCategory);
+		model.addAttribute("listbrands", listBrand);
 		model.addAttribute("pageTitle", "Create New Product");
 		
 		return "product/product_form";

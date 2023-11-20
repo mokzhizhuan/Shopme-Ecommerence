@@ -25,6 +25,9 @@ public class UserController {
 	@Autowired
 	private UserService service;
 	
+	@Autowired
+	private UserRepository userrepo;
+	
 	@GetMapping("/users")
 	public String listAll(Model model)
 	{
@@ -52,6 +55,18 @@ public class UserController {
 	{
 		System.out.println(user);
 		System.out.println(multipartFile.getOriginalFilename());
+		
+		if(user.getPassword().isEmpty())
+		{
+			User existuser = userrepo.getUserByEmail(user.getEmail());
+			user.setPassword(existuser.getPassword());
+		}
+		
+		if(user.getPhotos() == null)
+		{
+			User existuser = userrepo.getUserByEmail(user.getEmail());
+			user.setPhotos(existuser.getPhotos());
+		}
 		
 		if(!multipartFile.isEmpty())
 		{
