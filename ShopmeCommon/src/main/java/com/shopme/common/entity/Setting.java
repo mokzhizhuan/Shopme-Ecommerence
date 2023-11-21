@@ -17,7 +17,7 @@ public class Setting {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
-	@Column(name = "`key`", nullable = false, length = 128)
+	@Column(name = "key", nullable = false, length = 128)
 	private String key;
 	
 	@Column(nullable = false, length = 1024)
@@ -33,6 +33,11 @@ public class Setting {
 	
 	public Setting(String key) {
 		this.key = key;
+	}
+	
+	public Setting(String key, String value) {
+		this.key = key;
+		this.value = value;
 	}
 	
 	public Setting(String key, String value, SettingCategory category) {
@@ -88,12 +93,6 @@ public class Setting {
 		} else if (!key.equals(other.key))
 			return false;
 		return true;
-	}
-
-	@Override
-	public String toString() {
-		return "Setting [key=" + key + ", value=" + value + "]";
-	}
-	
+	}	
 	
 }

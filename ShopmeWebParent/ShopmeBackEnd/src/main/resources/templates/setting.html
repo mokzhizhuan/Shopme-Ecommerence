@@ -84,8 +84,12 @@
 </div>
 <div>
 	<h2>Manage Setting </h2><br/>
+	<div th:if="${message != null}" class="alert alert-success text-center">
+			[[${message}]]	
+		</div>
 	<div>
-			<form th:action="@{/setting/save_general}" method="post" style="max-width: 700px; margin: 0 auto">
+			<form th:action="@{/setting/save_general}" method="post" style="max-width: 700px; margin: 0 auto" 
+			enctype="multipart/form-data" >
 					<div class="border border-secondary rounded p-3">
 						<div class="form-group row">
 						<label class="col-sm-4 col-form-label">Site Name:</label>
@@ -124,7 +128,7 @@
 		$(document).ready(function(){
 			$("#buttonCancel").on("click", function()
 			{
-				window.location = "[[@{/brand}]]";
+				window.location = "[[@{/}]]";
 			});
 			
 			$("#fileImage").change(function()

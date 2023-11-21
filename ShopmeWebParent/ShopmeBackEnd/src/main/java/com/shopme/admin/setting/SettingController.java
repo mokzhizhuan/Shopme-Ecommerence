@@ -51,14 +51,14 @@ public class SettingController {
 		
 		ra.addFlashAttribute("message", "General settings have been saved.");
 		
-		return "redirect:/settings";
+		return "redirect:/setting";
 	}
 	
 	private void saveSiteLogo(MultipartFile multipartFile, GeneralSettingBag settingBag) throws IOException {
 		if (!multipartFile.isEmpty()) {
 			String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
 			String value = "/site-logo/" + fileName;
-			settingBag.updateSiteLogo(value);
+			settingBag.updateSiteLogo(fileName);
 			String uploadDir = "site-logo";
 			
 			FileUploadUtil.cleanDir(uploadDir);
