@@ -11,7 +11,7 @@ public class CategoryRestController {
 	@Autowired
 	private CategoryService service;
 	
-	@PostMapping("/users/check_name")
+	@PostMapping("/categories/check_name")
 	public String checkDuplicateEmail(@Param("name") String name,@Param("alias") String alias , @Param("id") int id)
 	{
 		return service.isNameUnique(id ,name, alias) ? "OK" : "Duplicated";

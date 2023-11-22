@@ -54,4 +54,30 @@ public class BrandService
 		
 		Brandrepo.deleteById(id);
 	}
+	
+	public boolean isNameUnique(int id, String name) 
+	{
+		Brands brandbyName = Brandrepo.getBrandByName(name);
+		
+		if (brandbyName == null) return true;
+		
+		boolean isCreatingNew = (id == 0);
+		
+		if(isCreatingNew)
+		{
+			if(brandbyName != null) 
+			{
+				return false;
+			}
+			else
+			{
+				if(brandbyName.getId() != id)
+				{
+					return false;
+				}
+			}
+		}
+		
+		return true;
+	}
 }

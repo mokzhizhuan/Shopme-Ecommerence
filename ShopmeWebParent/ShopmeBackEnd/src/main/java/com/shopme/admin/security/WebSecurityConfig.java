@@ -57,6 +57,10 @@ public class WebSecurityConfig {
 		
         http.authorizeHttpRequests(authorize -> authorize.requestMatchers("/login").permitAll()
         		.requestMatchers("/users/**", "/setting/**").hasAuthority("Admin")
+        		.requestMatchers("/categories/**", "/brands/**", "/product/**").hasAnyAuthority("Admin", "Editor")
+        		.requestMatchers("/product/edit/**", "/product/save", "/product/check_unique")
+        		.hasAnyAuthority("Admin", "Editor", "Salesperson")
+        		.requestMatchers("/product/", "/product/detail/**").hasAnyAuthority("Admin", "Editor", "Salesperson", "Shipper")
                 .anyRequest().authenticated())
                 .formLogin(login -> login.loginPage("/login")
                     .usernameParameter("email")
