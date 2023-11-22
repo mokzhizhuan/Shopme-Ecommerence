@@ -141,6 +141,10 @@ public class ProductController {
 			Products product = productService.get(id);
 			
 			model.addAttribute("product", product);
+			List<Category> listCategory = catservice.listAll();
+			List<Brands> listBrand = brandservice.ListAll();
+			model.addAttribute("listCategories", listCategory);
+			model.addAttribute("listbrands", listBrand);
 			model.addAttribute("pageTitle", "Edit Product {ID : " + id +")");
 			
 			return "product/product_form";

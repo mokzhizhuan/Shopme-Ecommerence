@@ -10,6 +10,7 @@
 	<link rel="stylesheet" type="text/css" th:href="@{/fontawesome/all.css}" />
 	<script type="text/javascript" th:src="@{/webjars/jquery/jquery.min.js}"></script>
 	<script type="text/javascript" th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
 </head>
 <body>
 	<div id="container-fluid">
@@ -158,6 +159,18 @@
 				document.logoutForm.submit();
 			});
 		});
+		function customizeTabs() {
+	// Javascript to enable link to tab
+	var url = document.location.toString();
+	if (url.match('#')) {
+		$('.nav-tabs a[href="#' + url.split('#')[1] + '"]').tab('show');
+	}
+
+	// Change hash for page-reload
+	$('.nav-tabs a').on('shown.bs.tab', function(e) {
+		window.location.hash = e.target.hash;
+	})
+}
 	</script>
 </body>
 </html>

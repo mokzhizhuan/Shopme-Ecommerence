@@ -1,4 +1,4 @@
-div class="modal-header">
+<div class="modal-header">
 	<h4 class="modal-title">Product Details</h4>
 	<button type="button" class="close" data-dismiss="modal">&times;</button>
 </div>
@@ -30,7 +30,7 @@ div class="modal-header">
 			<div class="form-group row">
 				<label class="col-sm-2 col-form-label">Alias:</label>
 				<div class="col-sm-10">
-					<input type="text" class="form-control" th:value="${product.alias}"
+					<input type="text" class="form-control" th:value="${product.ailas}"
 						readonly />
 				</div>
 			</div>
@@ -59,14 +59,6 @@ div class="modal-header">
 			</div>
 
 			<div class="form-group row">
-				<label class="col-sm-2 col-form-label">Cost:</label>
-				<div class="col-sm-10">
-					<input type="text" class="form-control" th:value="${product.cost}"
-						readonly />
-				</div>
-			</div>
-
-			<div class="form-group row">
 				<label class="col-sm-2 col-form-label">Price:</label>
 				<div class="col-sm-10">
 					<input type="text" class="form-control" th:value="${product.price}"
@@ -78,7 +70,7 @@ div class="modal-header">
 				<label class="col-sm-2 col-form-label">Discount:</label>
 				<div class="col-sm-10">
 					<input type="text" class="form-control"
-						th:value="${product.discountPercent}" readonly />
+						th:value="${product.discountcost}" readonly />
 				</div>
 			</div>
 
@@ -91,16 +83,16 @@ div class="modal-header">
 			</div>
 		</div>
 		<div class="tab-pane" id="description" role="tabpanel">
-			<div th:replace="products/product_description_read_only :: content"></div>
+			<div th:replace="~{product/product_description_read_only :: content}"></div>
 		</div>
 		<div class="tab-pane" id="images" role="tabpanel">
-			<div th:replace="products/product_images_read_only :: content"></div>
+			<div th:replace="~{product/product_images_read_only :: content}"></div>
 		</div>
 		<div class="tab-pane p-3" id="details" role="tabpanel">
-			<div th:replace="products/product_details_read_only :: content"></div>
+			<div th:replace="~{product/product_details_read_only :: content}"></div>
 		</div>
 		<div class="tab-pane p-3" id="shipping" role="tabpanel">
-			<div th:replace="products/product_shipping_read_only :: content"></div>
+			<div th:replace="~{product/product_shipping_read_only :: content}"></div>
 		</div>
 	</div>
 </div>
