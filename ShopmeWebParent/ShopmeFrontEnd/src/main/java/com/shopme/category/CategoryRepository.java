@@ -1,0 +1,18 @@
+package com.shopme.category;
+
+import java.util.List;
+
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.CrudRepository;
+
+import com.shopme.common.entity.Category;
+
+public interface CategoryRepository extends CrudRepository<Category, Integer> {
+
+	@Query("Select c From Category c WHERE c.enabled = true ORDER BY c.name ASC")
+	public List<Category> findAllEnabled();
+	
+	@Query("Select c From Category c WHERE c.enabled = true ORDER BY c.alias ASC")
+	public Category findbyAliasEnabled(String alias);
+
+}

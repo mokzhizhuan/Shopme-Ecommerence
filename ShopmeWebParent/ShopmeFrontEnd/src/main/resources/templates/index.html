@@ -1,10 +1,87 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
 <meta charset="ISO-8859-1">
-<title>Welcome to Shopme</title>
+<title>Shopme Customer Registration Form</title>
+<link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" />
+<script type ="text/javascript" th:src="@{/webjars/jquery/jquery.min.js}"></script>
+<script type ="text/javascript" th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
 </head>
 <body>
-	<h1>Welcome to Shopme eCommerence</h1>
+	<div id="container-fluid">
+		<div>
+			<form th:action="@{/logout}" method="post" th:hidden="true" name="logoutForm">
+				<input type="submit" />
+			</form>
+			<nav class="navbar navbar-expand-lg bg-dark navbar-dark">
+				<a class="navbar-brand" th:href=@{/}>
+					<img th:src="@{/images/ShopmeAdminSmall.png}"/>
+				</a>
+				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#topNavbar">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<div class="collapse navbar-collapse" id="topNavbar">
+					<ul class="navbar-nav">
+						<li class="nav-item">
+							<a class="nav-link" th:href="">Careers</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" th:href="">Payments</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" th:href="">Shipping & Delivery</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" th:href="">Login</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" th:href="">Register</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" th:href="">Contact</a>
+						</li>
+						<li>
+							<img th:src="@{/user-solid.png}" />
+						</li>
+						<!--<li class="nav-item">
+							<a class="nav-link" th:href="@{/account}" sec:authentication="principal.fullname"></a>
+						</li>-->
+						<li class="nav-item">
+							<a class="nav-link" th:href="@{/logout}" id="logoutLink">Logout</a>
+							</li>
+					</ul>
+				</div>
+			</nav>
+		</div>
+		
+		<div>
+			<h1>Shopping by Categories</h1>
+		</div>
+
+		<div class="row">
+			<div class="col" th:each="cat : ${listCategories}">
+				<div>
+					<a th:href="@{'/c/' + ${cat.alias}}">[[${cat.name}]]</a>
+				</div>
+			</div>
+		</div>
+		
+		<div id="container-fluid">
+			<nav class="navbar navbar-expand-lg bg-dark navbar-dark">
+				<li class="nav-item">
+							<a class="nav-link" th:href="">About Us</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" th:href="">Privacy Notice</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" th:href="">Return &amp; Refunds</a>
+						</li>
+				</nav>
+			</div>
+		<div>
+			<p>Shopme Control Panel - Copyright &copy; Shopme</p>
+		</div>
 </body>
 </html>

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
 <meta http-equiv="Content-Type" content="text/html"; charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
@@ -73,7 +74,7 @@
 							<img th:src="@{/user-solid.png}" />
 						</li>
 						<li class="nav-item">
-							<a class ="nav-link" sec:authentication="principal.username"></a>
+							<a class="nav-link" th:href="@{/account}" sec:authentication="principal.fullname"></a>
 						</li>
 						<li class="nav-item">
 							<a class="nav-link" href="@{/logout}" id="logoutLink">Logout</a>
@@ -101,6 +102,7 @@
 		<div class="form-group row">
 			<label class="col-sm-4 col-form-label">Brand Logo:</label>
 			<div class="col-sm-8">
+				<input type="hidden" th:field="*{logo}" />
 				<input type="file" id="fileImage" name="fileimage" accept="image/png, image/jpeg" class="mb-2" />
 				<img id="thumbnail" th:if="${brand.logo == null}" th:src="@{/image-thumbnail.png}" 
 				width="75" height="125" class="img-fluid">
