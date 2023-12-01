@@ -16,23 +16,22 @@ import com.shopme.common.entity.Products;
 
 @Service
 public class ProductService {
+	
 	public static final int PRODUCTS_PER_PAGE = 10;
 	public static final int SEARCH_RESULTS_PER_PAGE = 10;
 	
 	@Autowired 
 	private ProductRepository repo;
 	
-	@Autowired
-	private CategoryRepository caterrepo;
-	
-	public List<Products> listByCategory(Integer categoryId) {
+	public Page<Products> listByCategory(int pageNum, Integer categoryId) {
 		String categoryIdMatch = "-" + String.valueOf(categoryId) + "-";
+		Pageable pageable = PageRequest.of(pageNum - 1, PRODUCTS_PER_PAGE);
 		
-		return repo.listByCategory(categoryId, categoryIdMatch);
+		return repo.listByCategory(categoryId, categoryIdMatch, pageable);
 	}
 	
 	public Products getProduct(String alias) throws ProductNotFoundException {
-		Products product = repo.findByAlias(alias);
+		Products product = repo.findByAilas(alias);
 		if (product == null) {
 			throw new ProductNotFoundException("Could not find any product with alias " + alias);
 		}
@@ -40,6 +39,12 @@ public class ProductService {
 		return product;
 	}
 	
+	public Page<Products> search(String keyword, int pageNum) {
+		Pageable pageable = PageRequest.of(pageNum - 1, SEARCH_RESULTS_PER_PAGE);
+		return repo.search(keyword, pageable);
+		
+	}
+
 	public List<Products> listAll()
 	{
 		return (List<Products>) repo.findAll();

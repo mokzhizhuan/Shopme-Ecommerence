@@ -31,6 +31,9 @@ public class Category {
 	@Column(length = 128, nullable = false, unique = true)
 	public String alias;
 	
+	@Column(name = "all_parent_ids", length = 256, nullable = true)
+	private String allParentIDs;
+	
 	@Column(length = 128)
 	private String image;
 
@@ -136,5 +139,24 @@ public class Category {
 		}
 		
 		return "/category-images/" + this.id + "/" + this.image;
+	}
+
+	@Transient
+	private boolean hasChildren;
+	
+	public boolean isHasChildren() {
+		return hasChildren;
+	}
+
+	public void setHasChildren(boolean hasChildren) {
+		this.hasChildren = hasChildren;
+	}
+	
+	public String getAllParentIDs() {
+		return allParentIDs;
+	}
+
+	public void setAllParentIDs(String allParentIDs) {
+		this.allParentIDs = allParentIDs;
 	}
 }

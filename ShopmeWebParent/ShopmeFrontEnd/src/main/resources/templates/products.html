@@ -2,7 +2,11 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-<head th:replace="fragments :: page_head(${pageTitle}, 'tag')" />
+<meta charset="ISO-8859-1">
+<title>Shopme Products - [[${pageTitle}]]</title>
+<link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" />
+<script type ="text/javascript" th:src="@{/webjars/jquery/jquery.min.js}"></script>
+<script type ="text/javascript" th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
 <link th:href="@{/star-rating/css/star-rating.css}" media="all"
 	rel="stylesheet" type="text/css" />
 <script th:src="@{/star-rating/js/star-rating.js}"
@@ -60,9 +64,9 @@
 		</div>
 
 		<div class="row text-center">
-			<th:block th:each="cat : ${category.children}">
+			<th:block th:each="cat : ${category}">
 				<div class="col" th:if="${cat.enabled == true}">
-					<a th:href="@{'/c/' + ${cat.alias}}"> <br /> <b>[[${cat.name}]]</b>
+					<a th:href="@{'/c/' + ${cat.ailas}}"> <br /> <b>[[${cat.name}]]</b>
 					</a>
 				</div>
 			</th:block>
@@ -71,7 +75,9 @@
 		<div class="row">&nbsp;</div>
 		<div class="row">
 			<th:block th:each="product : ${listProducts}">
-				<div th:replace="product/product_fragment :: content"></div>
+			<div>
+		 <b>[[${product.shortName}]]</b>
+		</div>
 			</th:block>
 		</div>
 
