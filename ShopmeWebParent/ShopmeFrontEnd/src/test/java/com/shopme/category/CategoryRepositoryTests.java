@@ -18,7 +18,6 @@ import com.shopme.common.entity.Category;
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = Replace.NONE)
 @Rollback(false)
-@ContextConfiguration(classes=CategoryRepositoryTests.class, loader=AnnotationConfigContextLoader.class)
 public class CategoryRepositoryTests {
 
 	@Autowired 

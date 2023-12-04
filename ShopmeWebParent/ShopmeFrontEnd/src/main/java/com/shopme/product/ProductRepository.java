@@ -9,6 +9,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import com.shopme.common.entity.Products;
 
+
 public interface ProductRepository extends PagingAndSortingRepository  <Products, Integer> {
 
 	@Query("SELECT p FROM Products p WHERE p.enabled = true "

@@ -12,12 +12,9 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "setting")
 public class Setting {
-	
+
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
-	
-	@Column(name = "key", nullable = false, length = 128)
+	@Column(name = "`key`", nullable = false, length = 128)
 	private String key;
 	
 	@Column(nullable = false, length = 1024)

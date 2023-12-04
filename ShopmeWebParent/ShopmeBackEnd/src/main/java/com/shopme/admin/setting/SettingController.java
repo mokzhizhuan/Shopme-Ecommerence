@@ -2,6 +2,7 @@ package com.shopme.admin.setting;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,7 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.shopme.admin.FileUploadUtil;
-import com.shopme.common.entity.Products;
+import com.shopme.common.entity.Currency;
 import com.shopme.common.entity.Setting;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -25,18 +26,22 @@ public class SettingController {
 	@Autowired
 	private SettingService settingService;
 	
+	@Autowired 
+	private CurrencyRepository currencyRepo;
+	
 	@GetMapping("/setting")
 	public String listAll(Model model)
 	{
 		List<Setting> listSetting = settingService.ListAll();
+		List<Currency> listCurrencies = currencyRepo.findAllByOrderByNameAsc();
 		
-		model.addAttribute("listsetting", listSetting);
+		model.addAttribute("listCurrencies", listCurrencies);
 		for(Setting setting : listSetting)
 		{
 			model.addAttribute(setting.getKey(), setting.getValue());
 		}	
 	
-		return "setting";
+		return "setting/setting";
 	}
 	
 	@PostMapping("/setting/save_general")
@@ -46,6 +51,7 @@ public class SettingController {
 		GeneralSettingBag settingBag = settingService.getGeneralSettings();
 		
 		saveSiteLogo(multipartFile, settingBag);
+		saveCurrencySymbol(request, settingBag);
 		
 		updateSettingValuesFromForm(request, settingBag.list());
 		
@@ -58,11 +64,22 @@ public class SettingController {
 		if (!multipartFile.isEmpty()) {
 			String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
 			String value = "/site-logo/" + fileName;
-			settingBag.updateSiteLogo(fileName);
+			settingBag.updateSiteLogo(value);
+			
 			String uploadDir = "site-logo";
 			
 			FileUploadUtil.cleanDir(uploadDir);
 			FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
+		}
+	}
+	
+	private void saveCurrencySymbol(HttpServletRequest request, GeneralSettingBag settingBag) {
+		Integer currencyId = Integer.parseInt(request.getParameter("CURRENCY_ID"));
+		Optional<Currency> findByIdResult = currencyRepo.findById(currencyId);
+		
+		if (findByIdResult.isPresent()) {
+			Currency currency = findByIdResult.get();
+			settingBag.updateCurrencySymbol(currency.getSymbol());
 		}
 	}
 	
@@ -72,12 +89,28 @@ public class SettingController {
 			if (value != null) {
 				setting.setValue(value);
 			}
-			else
-			{
-				setting.setValue(setting.getValue());
-			}
 		}
 		
 		settingService.saveAll(listSettings);
+	}
+	
+	@PostMapping("/settings/save_mail_server")
+	public String saveMailServerSetttings(HttpServletRequest request, RedirectAttributes ra) {
+		List<Setting> mailServerSettings = settingService.getMailServerSettings();
+		updateSettingValuesFromForm(request, mailServerSettings);
+		
+		ra.addFlashAttribute("message", "Mail server settings have been saved");
+		
+		return "redirect:/settings#mailServer";
+	}
+	
+	@PostMapping("/settings/save_mail_templates")
+	public String saveMailTemplateSetttings(HttpServletRequest request, RedirectAttributes ra) {
+		List<Setting> mailTemplateSettings = settingService.getMailTemplateSettings();
+		updateSettingValuesFromForm(request, mailTemplateSettings);
+		
+		ra.addFlashAttribute("message", "Mail template settings have been saved");
+		
+		return "redirect:/settings#mailTemplates";
 	}
 }

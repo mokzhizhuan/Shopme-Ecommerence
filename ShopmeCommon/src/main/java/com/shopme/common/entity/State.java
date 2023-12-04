@@ -53,4 +53,12 @@ public class State {
 	public String toString() {
 		return "State [id=" + id + ", name=" + name + "]";
 	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
 }

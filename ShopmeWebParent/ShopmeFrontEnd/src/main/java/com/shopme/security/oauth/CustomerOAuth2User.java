@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.Map;
 
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 
 public class CustomerOAuth2User implements OAuth2User {
 	private String clientName;
@@ -20,6 +21,7 @@ public class CustomerOAuth2User implements OAuth2User {
 		return oauth2User.getAttributes();
 	}
 
+	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		return oauth2User.getAuthorities();
 	}

@@ -36,8 +36,7 @@ public class ProductController {
 	
 	@GetMapping("/c/{category_alias}/page/{pageNum}")
 	public String viewCategoryByPage(@PathVariable("category_alias") String alias,
-			@PathVariable("pageNum") int pageNum,
-			Model model) {
+			@PathVariable("pageNum") int pageNum, Model model) {
 		try {
 			Category category = categoryService.getCategory(alias);		
 			List<Category> listCategoryParents = categoryService.getCategoryParents(category);
@@ -62,7 +61,7 @@ public class ProductController {
 			model.addAttribute("listProducts", listProducts);
 			model.addAttribute("category", category);
 			
-			return "product/products_by_category";
+			return "products";
 		} catch (CategoryNotFoundException ex) {
 			return "error/404";
 		}
@@ -96,7 +95,7 @@ public class ProductController {
 			//model.addAttribute("listReviews", listReviews);
 			model.addAttribute("pageTitle", product.getName());
 			
-			return "product/product_detail";
+			return "product_detail";
 		} catch (ProductNotFoundException e) {
 			return "error/404";
 		}

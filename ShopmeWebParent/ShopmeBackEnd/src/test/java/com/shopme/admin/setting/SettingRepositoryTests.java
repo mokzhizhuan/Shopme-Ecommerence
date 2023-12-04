@@ -34,6 +34,34 @@ public class SettingRepositoryTests {
 		assertThat(iterable).size().isGreaterThan(0);
 	}
 	
+	@Test
+	public void testCreateCurrencySettings() {
+		Setting currencyId = new Setting("CURRENCY_ID", "1", SettingCategory.CURRENCY);
+		Setting symbol = new Setting("CURRENCY_SYMBOL", "$", SettingCategory.CURRENCY);
+		Setting symbolPosition = new Setting("CURRENCY_SYMBOL_POSITION", "before", SettingCategory.CURRENCY);
+		Setting decimalPointType = new Setting("DECIMAL_POINT_TYPE", "POINT", SettingCategory.CURRENCY);
+		Setting decimalDigits = new Setting("DECIMAL_DIGITS", "2", SettingCategory.CURRENCY);
+		Setting thousandsPointType = new Setting("THOUSANDS_POINT_TYPE", "COMMA", SettingCategory.CURRENCY);
+		
+		repo.saveAll(List.of(currencyId, symbol, symbolPosition, decimalPointType, 
+				decimalDigits, thousandsPointType));
+		
+	}
+	
+	@Test
+	public void testCreateEmailSettings() {
+		Setting mailfrom = new Setting("MAIL_FROM", "shopme@gmail.com", SettingCategory.MAIL_SERVER);
+		Setting mailhost = new Setting("MAIL_HOST", "smtp@gmail.com", SettingCategory.MAIL_SERVER);
+		Setting mailpassword = new Setting("MAIL_PASSWORD", "password", SettingCategory.MAIL_SERVER);
+		Setting mailport = new Setting("MAIL_PORT", "123", SettingCategory.MAIL_SERVER);
+		Setting mailsender = new Setting("MAIL_SENDER_NAME", "Shopme Team", SettingCategory.MAIL_SERVER);
+		Setting mailusername = new Setting("MAIL_USERNAME", "username", SettingCategory.MAIL_SERVER);
+		Setting mailsmtp = new Setting("SMTP_AUTH", "true", SettingCategory.MAIL_SERVER);
+		Setting mailsmtpauth = new Setting("SMTP_SECURED", "true", SettingCategory.MAIL_SERVER);	
+		
+		repo.saveAll(List.of(mailfrom, mailhost, mailpassword, mailport, mailsender, mailusername, mailsmtp, mailsmtpauth));
+		
+	}
 	
 	@Test
 	public void testListSettingsByCategory() {

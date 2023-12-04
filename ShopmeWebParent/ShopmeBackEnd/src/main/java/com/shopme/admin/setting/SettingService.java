@@ -36,4 +36,17 @@ public class SettingService {
 	public void saveAll(Iterable<Setting> settings) {
 		settingrepo.saveAll(settings);
 	}
+	
+	public List<Setting> getMailServerSettings() {
+		return settingrepo.findByCategory(SettingCategory.MAIL_SERVER);
+	}
+	
+	public List<Setting> getMailTemplateSettings() {
+		return settingrepo.findByCategory(SettingCategory.MAIL_TEMPLATES);
+	}	
+	
+	public List<Setting> getCurrencySettings() {
+		return settingrepo.findByCategory(SettingCategory.CURRENCY);
+	}
+	
 }

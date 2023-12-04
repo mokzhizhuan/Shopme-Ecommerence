@@ -2,7 +2,6 @@ package com.shopme.common.entity;
 
 import java.util.Date;
 
-import jakarta.annotation.Resource.AuthenticationType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -201,8 +200,8 @@ public class Customer {
 		return authenticationType;
 	}
 
-	public void setAuthenticationType(AuthenticationType authenticationType) {
-		this.authenticationType = authenticationType;
+	public void setAuthenticationType(AuthenticationType database) {
+		this.authenticationType = database;
 	}
 
 	public String getResetPasswordToken() {

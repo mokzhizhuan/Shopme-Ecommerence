@@ -23,7 +23,6 @@ import com.shopme.common.entity.Customer;
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = Replace.NONE)
 @Rollback(false)
-@ContextConfiguration(classes=CustomerRepositoryTests.class, loader=AnnotationConfigContextLoader.class)
 public class CustomerRepositoryTests {
 
 	@Autowired 
@@ -43,6 +42,7 @@ public class CustomerRepositoryTests {
 		customer.setLastName("Fountaine");
 		customer.setPassword("password123");
 		customer.setEmail("david.s.fountaine@gmail.com");
+		customer.setEnabled(true);
 		customer.setPhoneNumber("312-462-7518");
 		customer.setAddress("1927  West Drive");
 		customer.setCity("Sacramento");
@@ -67,6 +67,7 @@ public class CustomerRepositoryTests {
 		customer.setLastName("Lad");
 		customer.setPassword("password456");
 		customer.setEmail("sanya.lad2020@gmail.com");
+		customer.setEnabled(true);
 		customer.setPhoneNumber("02224928052");
 		customer.setAddress("173 , A-, Shah & Nahar Indl.estate, Sunmill Road");
 		customer.setCity("Mumbai");

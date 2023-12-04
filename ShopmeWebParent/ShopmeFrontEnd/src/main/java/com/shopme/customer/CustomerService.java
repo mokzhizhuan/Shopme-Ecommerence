@@ -11,7 +11,7 @@ import com.shopme.common.entity.Country;
 import com.shopme.common.entity.Customer;
 import com.shopme.setting.CountryRepository;
 
-import jakarta.annotation.Resource.AuthenticationType;
+import com.shopme.common.entity.AuthenticationType;
 
 @Service
 public class CustomerService {
@@ -36,7 +36,7 @@ public class CustomerService {
 	{
 		customer.setEnabled(false);
 		customer.setCreatedTIme(new Date());
-		customer.setAuthenticationType(AuthenticationType.APPLICATION);
+		customer.setAuthenticationType(AuthenticationType.DATABASE);
 		
 		String SALTCHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
         StringBuilder salt = new StringBuilder();
@@ -69,7 +69,8 @@ public class CustomerService {
 	}
 	
 	public void updateAuthenticationType(Customer customer, AuthenticationType type) {
-		if (!customer.getAuthenticationType().equals(type)) {
+		if (!customer.getAuthenticationType().equals(type)) 
+		{
 			customerrepo.updateAuthenticationType(customer.getId(), type);
 		}
 	}
@@ -111,7 +112,7 @@ public class CustomerService {
 	public void update(Customer customerInForm) {
 		Customer customerInDB = customerrepo.findById(customerInForm.getId()).get();
 		
-		if (customerInDB.getAuthenticationType().equals(AuthenticationType.APPLICATION)) {
+		if (customerInDB.getAuthenticationType().equals(AuthenticationType.DATABASE)) {
 				customerInForm.setPassword(customerInDB.getPassword());		
 		} else {
 			customerInForm.setPassword(customerInDB.getPassword());
@@ -146,7 +147,8 @@ public class CustomerService {
 		}
 	}	
 	
-	public Customer getByResetPasswordToken(String token) {
+	public Customer getByResetPasswordToken(String token) 
+	{
 		return customerrepo.findByResetPasswordToken(token);
 	}
 	

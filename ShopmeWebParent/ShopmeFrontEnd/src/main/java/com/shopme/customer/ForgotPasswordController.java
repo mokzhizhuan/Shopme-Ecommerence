@@ -2,7 +2,13 @@ package com.shopme.customer;
 
 import java.io.UnsupportedEncodingException;
 
+import jakarta.mail.MessagingException;
+import jakarta.mail.internet.MimeMessage;
+import jakarta.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,11 +19,9 @@ import com.shopme.common.entity.Customer;
 import com.shopme.setting.EmailSettingBag;
 import com.shopme.setting.SettingService;
 
-import jakarta.servlet.http.HttpServlet;
-import jakarta.servlet.http.HttpServletRequest;
-
 @Controller
-public class ForgotPasswordController {
+public class ForgotPasswordController 
+{
 	@Autowired private CustomerService customerService;
 	@Autowired private SettingService settingService;
 	
@@ -27,12 +31,12 @@ public class ForgotPasswordController {
 	}
 	
 	@PostMapping("/forgot_password")
-	public String processRequestForm(HttpServlet request, Model model) {
-		String email = request.getInitParameter("email");
+	public String processRequestForm(HttpServletRequest request, Model model) throws UnsupportedEncodingException, MessagingException {
+		String email = request.getParameter("email");
 		try {
 			String token = customerService.updateResetPasswordToken(email);
 			String link = Utility.getSiteURL(request) + "/reset_password?token=" + token;
-			//sendEmail(link, email);
+			sendEmail(link, email);
 			
 			model.addAttribute("message", "We have sent a reset password link to your email."
 					+ " Please check.");
@@ -43,7 +47,7 @@ public class ForgotPasswordController {
 		return "customer/forgot_password_form";
 	}
 	
-	/*private void sendEmail(String link, String email) 
+	private void sendEmail(String link, String email) 
 			throws UnsupportedEncodingException, MessagingException {
 		EmailSettingBag emailSettings = settingService.getEmailSettings();
 		JavaMailSenderImpl mailSender = Utility.prepareMailSender(emailSettings);
@@ -68,7 +72,7 @@ public class ForgotPasswordController {
 		
 		helper.setText(content, true);
 		mailSender.send(message);
-	}*/
+	}
 	
 	@GetMapping("/reset_password")
 	public String showResetForm(String token, Model model) {

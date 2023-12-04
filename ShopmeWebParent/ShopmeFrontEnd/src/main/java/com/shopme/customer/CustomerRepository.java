@@ -6,7 +6,7 @@ import org.springframework.data.repository.CrudRepository;
 
 import com.shopme.common.entity.Customer;
 
-import jakarta.annotation.Resource.AuthenticationType;
+import com.shopme.common.entity.AuthenticationType;
 
 public interface CustomerRepository extends CrudRepository<Customer, Integer>{
 	

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<div th:fragment="content" th:remove="tag">
+		<div>
+			<p>
+				Use this page to manage countries which will be displayed in the customer registration.<br>
+				Click to load Country first.
+			</p>			
+	</div>
+	<div>
+		<input type="button" value="Load Country List" id="buttonLoadCountries" class="btn btn-primary m-2" />
+	</div>
+	<div>
+		<select class="form-control" style="height: 300px" size="3" id="dropDownCountries" >
+		</select>
+	</div>
+	<form id="formCountry" method="post">
+	<div class="form-group-row">
+		<label class="col-sm-4 col-form-label" id="labelCountryName">Country Name:</label>
+		<div class="col-md">
+			<input type="text" class="form-control mt-2" id="fieldCountryName" />
+		</div>
+		<label class="col-sm-4 col-form-label">Code:</label>
+		<div class="col-md">
+			<input type="text" class="form-control mt-2" id="fieldCountryCode" />
+		</div>
+		<div class="col-lg-4 mt-2">
+			<input type="button" value="Add" id="buttonAddCountry" class="btn btn-secondary" />
+			<input type="button" value="Update"  id="buttonUpdateCountry" class="btn btn-secondary" />
+			<input type="button" value="Delete" id="buttonDeleteCountry" class="btn btn-secondary" />
+		</div>
+	</div>
+	</form>
+	</div>
+</body>
+</html>
