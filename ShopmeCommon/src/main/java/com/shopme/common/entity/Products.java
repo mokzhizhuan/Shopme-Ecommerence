@@ -78,12 +78,20 @@ public class Products {
 	@OneToMany(mappedBy = "product" , cascade = CascadeType.ALL)
 	private List<ProductDetail> details = new ArrayList<>();
 
+	public Products(Integer id) {
+		this.Id = id;
+	}
+
+	public Products() 
+	{
+	}
+
 	public Integer getId() {
 		return Id;
 	}
 
 	public void setId(Integer id) {
-		Id = id;
+		this.Id = id;
 	}
 
 	public String getName() {

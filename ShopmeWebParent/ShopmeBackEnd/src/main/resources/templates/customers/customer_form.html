@@ -204,9 +204,11 @@
 			</div>
 		</form>
 
-		<div th:replace="modal_fragments :: modal_dialog"></div>
 
-		<div th:replace="fragments :: footer"></div>
+
+		<div>
+	<p>Shopme Control Panel - Copyright &copy; Shopme</p>
+	</div>
 	</div>
 	<script type="text/javascript">
 		contextPath = "[[@{/}]]";
@@ -224,12 +226,12 @@
 				if (response == "OK") {
 					form.submit();
 				} else if (response == "Duplicated") {
-					showWarningModal("There is another customer having the email " + customerEmail);
+					alert("There is another customer having the email " + customerEmail);
 				} else {
-					showErrorModal("Unknown response from server");
+					alert("Unknown response from server");
 				}
 			}).fail(function () {
-				showErrorModal("Could not connect to the server");
+				alert("Could not connect to the server");
 			});
 
 			return false;

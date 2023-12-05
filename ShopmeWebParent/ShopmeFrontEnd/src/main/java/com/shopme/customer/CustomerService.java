@@ -68,7 +68,8 @@ public class CustomerService {
 		}
 	}
 	
-	public void updateAuthenticationType(Customer customer, AuthenticationType type) {
+	public void updateAuthenticationType(Customer customer, AuthenticationType type) 
+	{
 		if (!customer.getAuthenticationType().equals(type)) 
 		{
 			customerrepo.updateAuthenticationType(customer.getId(), type);

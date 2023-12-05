@@ -16,6 +16,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.support.AnnotationConfigContextLoader;
 
 import com.shopme.category.CategoryRepositoryTests;
+import com.shopme.common.entity.AuthenticationType;
 //import com.shopme.common.entity.AuthenticationType;
 import com.shopme.common.entity.Country;
 import com.shopme.common.entity.Customer;
@@ -49,6 +50,7 @@ public class CustomerRepositoryTests {
 		customer.setState("California");
 		customer.setPostalCode("95867");
 		customer.setCreatedTIme(new Date());
+		customer.setAuthenticationType(AuthenticationType.DATABASE);
 		
 		Customer savedCustomer = repo.save(customer);
 		
@@ -74,6 +76,7 @@ public class CustomerRepositoryTests {
 		customer.setState("Maharashtra");
 		customer.setPostalCode("400013");
 		customer.setCreatedTIme(new Date());
+		customer.setAuthenticationType(AuthenticationType.DATABASE);
 		
 		Customer savedCustomer = repo.save(customer);
 		

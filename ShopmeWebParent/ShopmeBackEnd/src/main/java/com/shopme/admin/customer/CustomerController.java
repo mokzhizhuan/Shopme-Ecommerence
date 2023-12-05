@@ -30,7 +30,8 @@ public class CustomerController {
 	@GetMapping("/customers/page/{pageNum}")
 	public String listByPage(
 			@PagingAndSortingParam(listName = "listCustomers", moduleURL = "/customers") PagingAndSortingHelper helper,
-			@PathVariable(name = "pageNum") int pageNum) {
+			@PathVariable(name = "pageNum") int pageNum) 
+	{
 
 		service.listByPage(pageNum, helper);
 		

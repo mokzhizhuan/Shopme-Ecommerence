@@ -64,6 +64,18 @@ public class SettingRepositoryTests {
 	}
 	
 	@Test
+	public void testCreateEmailTemplate() {
+		Setting customertemplate = new Setting("CUSTOMER_VERIFY_SUBJECT", "Please verify your registration", SettingCategory.MAIL_TEMPLATES);
+		Setting customercontent = new Setting("CUSTOMER_VERIFY_CONTENT", "<span style='font-size=18px;'>Dear customer , please verify your registration</span>", SettingCategory.MAIL_TEMPLATES);
+		Setting orderconfirmation = new Setting("ORDER_CONFIRMATION_SUBJECT", "Order Confirmation", SettingCategory.MAIL_TEMPLATES);
+		Setting ordercontent = new Setting("ORDER_CONFIRMATION_CONTENT", "<span style='font-size=18px;'>Dear customer , your order is completed</span>", SettingCategory.MAIL_TEMPLATES);
+
+		
+		repo.saveAll(List.of(customertemplate, customercontent, orderconfirmation, ordercontent));
+		
+	}
+	
+	@Test
 	public void testListSettingsByCategory() {
 		List<Setting> settings = repo.findByCategory(SettingCategory.GENERAL);
 		

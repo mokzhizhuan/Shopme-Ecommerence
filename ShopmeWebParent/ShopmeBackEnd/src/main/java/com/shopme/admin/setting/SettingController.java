@@ -83,6 +83,26 @@ public class SettingController {
 		}
 	}
 	
+	@PostMapping("/setting/save_mail_server")
+	public String saveMailServerSetttings(HttpServletRequest request, RedirectAttributes ra) {
+		List<Setting> mailServerSettings = settingService.getMailServerSettings();
+		updateSettingValuesFromForm(request, mailServerSettings);
+		
+		ra.addFlashAttribute("message", "Mail server settings have been saved");
+		
+		return "redirect:/setting#mailServer";
+	}
+	
+	@PostMapping("/setting/save_mail_templates")
+	public String saveMailTemplateSetttings(HttpServletRequest request, RedirectAttributes ra) {
+		List<Setting> mailTemplateSettings = settingService.getMailTemplateSettings();
+		updateSettingValuesFromForm(request, mailTemplateSettings);
+		
+		ra.addFlashAttribute("message", "Mail template settings have been saved");
+		
+		return "redirect:/setting#mailTemplates";
+	}
+	
 	private void updateSettingValuesFromForm(HttpServletRequest request, List<Setting> listSettings) {
 		for (Setting setting : listSettings) {
 			String value = request.getParameter(setting.getKey());
@@ -92,25 +112,5 @@ public class SettingController {
 		}
 		
 		settingService.saveAll(listSettings);
-	}
-	
-	@PostMapping("/settings/save_mail_server")
-	public String saveMailServerSetttings(HttpServletRequest request, RedirectAttributes ra) {
-		List<Setting> mailServerSettings = settingService.getMailServerSettings();
-		updateSettingValuesFromForm(request, mailServerSettings);
-		
-		ra.addFlashAttribute("message", "Mail server settings have been saved");
-		
-		return "redirect:/settings#mailServer";
-	}
-	
-	@PostMapping("/settings/save_mail_templates")
-	public String saveMailTemplateSetttings(HttpServletRequest request, RedirectAttributes ra) {
-		List<Setting> mailTemplateSettings = settingService.getMailTemplateSettings();
-		updateSettingValuesFromForm(request, mailTemplateSettings);
-		
-		ra.addFlashAttribute("message", "Mail template settings have been saved");
-		
-		return "redirect:/settings#mailTemplates";
 	}
 }

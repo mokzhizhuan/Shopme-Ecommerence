@@ -149,48 +149,48 @@
 			</table>
 		</div>
 
-		<div class="less-details">
-			<div th:each="customer : ${listCustomers}" class="row m-1">
-				<div class="col-4">
-					<span><b>[[${customer.fullName}]]</b></span>
-				</div>
-				<div class="col-8">
-					<div class="mb-1">
-						<span>[[${customer.country.name}]]</span>
-					</div>
-					<div>
-						<a th:if="${customer.enabled == true}" title="Disable User">
-							<img th:src="@{/circle-check-solid.png}" width="50" height="50">
-							</a>
-						<a th:if="${customer.enabled == false}" title="Enable User">
-							<img th:src="@{/circle-check-solid-black.svg}" width="50" height="50">
-							</a>
-						&nbsp;
-						<a class="nav-link" th:href="@{'/customers/edit/' + ${customers.id}}" title="Edit Customers">
-								<img th:src="@{/pen-to-square-solid.svg}">
-								</a> &nbsp;&nbsp; 
-							<a class="nav-link"  th:href="@{'/customers/delete/' + ${customers.id}}" title="Delete Customers">
-								<img th:src="@{/trash-solid.svg}"></a>
-					</div>
-				</div>
-				<div>&nbsp;</div>
-			</div>
+
+		<div class="text-center m-1" th:if="${totalItems > 0}">
+			<span>Showing [[${entityName}]] # [[${startCount}]] to
+				[[${endCount}]] of [[${totalItems}]]</span>
+		</div>
+		<div class="text-center m-1" th:unless="${totalItems > 0}">
+			<span>No [[${entityName}]] found</span>
 		</div>
 
-		<div th:replace="fragments :: pagination('customers')"></div>
+		<div th:if="${totalPages > 1}">
+			<nav>
+				<ul class="pagination justify-content-center flex-wrap">
+					<li th:class="${currentPage > 1 ? 'page-item' : 'page-item disabled'}">
+						<a th:replace="fragments :: page_link(1, 'First')"></a>
+					</li>
+					<li	th:class="${currentPage > 1 ? 'page-item' : 'page-item disabled'}">
+						<a
+						th:replace="fragments :: page_link(${currentPage - 1}, 'Previous')"></a>
+					</li>
 
-		<div th:replace="modal_fragments :: confirm_modal" />
+					<li	th:class="${currentPage != i ? 'page-item': 'page-item active'}"
+						th:each="i : ${#numbers.sequence(1, totalPages)}"><a
+						th:replace="fragments :: page_link(${i}, ${i})"></a></li>
 
-		<div class="modal fade" id="detailModal">
-			<div class="modal-dialog modal-lg">
-				<div class="modal-content"></div>
-			</div>
+					<li	th:class="${currentPage < totalPages ? 'page-item' : 'page-item disabled'}">
+						<a th:replace="fragments :: page_link(${currentPage + 1}, 'Next')"></a>
+					</li>
+
+					<li	th:class="${currentPage < totalPages ? 'page-item' : 'page-item disabled'}">
+						<a th:replace="fragments :: page_link(${totalPages}, 'Last')"></a>
+					</li>
+				</ul>
+			</nav>
 		</div>
 
-		<div th:replace="fragments :: footer"></div>
+
+		<div>
+	<p>Shopme Control Panel - Copyright &copy; Shopme</p>
+	</div>
 
 	</div>
-	<script th:src="@{/js/common_list.js}"></script>
+	
 	<script type="text/javascript">
 		moduleURL = "[[@{/customers}]]";
 
@@ -205,7 +205,13 @@
 				linkDetailURL = $(this).attr("href");
 				$("#detailModal").modal("show").find(".modal-content").load(linkDetailURL);
 			});
+			$("#logoutLink").on("click", function(e)
+			{
+				e.preventDefault();
+				document.logoutForm.submit();
+			});
 		});
+		
 	</script>
 </body>
 

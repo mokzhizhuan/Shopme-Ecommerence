@@ -54,8 +54,6 @@ public class WebSecurityConfig {
 	
 	@Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-
-
 		http.authorizeHttpRequests(auth -> auth
 		.requestMatchers("/account_details", "/update_account_details", "/orders/**",
 				"/cart", "/address_book/**", "/checkout", "/place_order", "/reviews/**", 
@@ -69,9 +67,9 @@ public class WebSecurityConfig {
 			.loginPage("/login")
 			.userInfoEndpoint(user -> user.userService(oAuth2UserService))
 			.successHandler(oauth2LoginHandler))*/
-		.logout(logout -> logout.permitAll());
-		/*.rememberMe(remenber -> remenber.key("1234567890_aBcDeFgHiJkLmNoPqRsTuVwXyZ"))
-			.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.ALWAYS));	*/
+		.logout(logout -> logout.permitAll())
+		.rememberMe(remenber -> remenber.key("1234567890_aBcDeFgHiJkLmNoPqRsTuVwXyZ"))
+			.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.ALWAYS));	
 		
       
         http.headers(head -> head.frameOptions(frame -> frame.sameOrigin()));
