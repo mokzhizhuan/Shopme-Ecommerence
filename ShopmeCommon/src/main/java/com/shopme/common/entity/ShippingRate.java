@@ -29,6 +29,14 @@ public class ShippingRate {
 	
 	@Column(nullable = false, length = 45)
 	private String state;
+	
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
 	public float getRate() {
 		return rate;

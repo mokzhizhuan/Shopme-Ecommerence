@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import com.shopme.common.entity.Products;
@@ -28,6 +27,9 @@ public interface ProductRepository extends PagingAndSortingRepository  <Products
 
 
 	public List<Products> findAll();
+
+	@Query("SELECT p FROM Products p WHERE p.id = ?1")
+	public Products findById(Integer productId);
 
 	
 	/*@Query("Update Products p SET p.averageRating = COALESCE((SELECT AVG(r.rating) FROM Review r WHERE r.product.id = ?1), 0),"

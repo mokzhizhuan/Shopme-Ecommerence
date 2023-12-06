@@ -9,8 +9,6 @@ import org.springframework.stereotype.Service;
 import com.shopme.common.entity.Setting;
 import com.shopme.common.entity.SettingCategory;
 
-import jakarta.transaction.Transactional;
-
 @Service
 public class SettingService {
 
@@ -49,4 +47,7 @@ public class SettingService {
 		return settingrepo.findByCategory(SettingCategory.CURRENCY);
 	}
 	
+	public List<Setting> getPaymentSettings() {
+		return settingrepo.findByCategory(SettingCategory.PAYMENT);
+	}
 }

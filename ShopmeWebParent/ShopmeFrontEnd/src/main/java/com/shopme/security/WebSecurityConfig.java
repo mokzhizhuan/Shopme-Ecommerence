@@ -10,7 +10,6 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-
 import com.shopme.security.oauth.CustomerOAuth2UserService;
 import com.shopme.security.oauth.OAuth2LoginSuccessHandler;
 
@@ -63,10 +62,10 @@ public class WebSecurityConfig {
 			.usernameParameter("email")
 			.successHandler(databaseLoginHandler)
 			.permitAll())
-		/*.oauth2Login(oauth -> oauth
+		.oauth2Login(oauth -> oauth
 			.loginPage("/login")
 			.userInfoEndpoint(user -> user.userService(oAuth2UserService))
-			.successHandler(oauth2LoginHandler))*/
+			.successHandler(oauth2LoginHandler))
 		.logout(logout -> logout.permitAll())
 		.rememberMe(remenber -> remenber.key("1234567890_aBcDeFgHiJkLmNoPqRsTuVwXyZ"))
 			.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.ALWAYS));	

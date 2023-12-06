@@ -13,7 +13,6 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinColumns;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
@@ -78,12 +77,19 @@ public class Products {
 	@OneToMany(mappedBy = "product" , cascade = CascadeType.ALL)
 	private List<ProductDetail> details = new ArrayList<>();
 
+	private float cost;
+
 	public Products(Integer id) {
 		this.Id = id;
 	}
 
 	public Products() 
 	{
+	}
+
+
+	public Products(String name) {
+		this.name = name;
 	}
 
 	public Integer getId() {
@@ -263,7 +269,12 @@ public class Products {
 			return "/images/default-image.png";
 		}
 		
-		return "product-images/" + this.Id + "/" + this.mainImage;
+		return "/product-images/" + this.Id + "/" + this.mainImage;
+	}
+	
+	@Transient
+	public String getURI() {
+		return "/p/" + this.ailas ;
 	}
 
 	public void addDetail(String name, String value) {
@@ -273,4 +284,9 @@ public class Products {
 	public void addDetail(Integer id, String name, String value) {
 		this.details.add(new ProductDetail(id, name, value, this));
 	}
+
+	public float getCost() {
+		return cost;
+	}
+
 }

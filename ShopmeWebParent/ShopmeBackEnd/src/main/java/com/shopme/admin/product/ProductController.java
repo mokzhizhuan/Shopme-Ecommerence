@@ -1,7 +1,6 @@
 package com.shopme.admin.product;
 
 import java.io.IOException;
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +16,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.shopme.admin.FileUploadUtil;
 import com.shopme.admin.brands.BrandService;
-import com.shopme.admin.category.CategoryNotFoundException;
 import com.shopme.admin.category.CategoryService;
 import com.shopme.common.entity.Brands;
 import com.shopme.common.entity.Category;
@@ -68,6 +66,7 @@ public class ProductController {
 			@RequestParam("detailNames") String[] detailNames,@RequestParam("detailValues") String[] detailValues) 
 					throws IOException  
 	{
+		product.setInStock(true);
 		System.out.println(product);
 		if(!multipartFile.isEmpty() || !extramultipartFile.isEmpty())
 		{

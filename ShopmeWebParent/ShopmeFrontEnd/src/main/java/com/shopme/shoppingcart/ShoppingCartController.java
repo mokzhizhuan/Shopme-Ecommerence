@@ -19,10 +19,17 @@ import com.shopme.shipping.ShippingRateService;
 
 @Controller
 public class ShoppingCartController {
-	@Autowired private ControllerHelper controllerHelper;
-	@Autowired private ShoppingCartService cartService;
-	@Autowired private AddressService addressService;
-	@Autowired private ShippingRateService shipService;
+	@Autowired 
+	private ControllerHelper controllerHelper;
+	
+	@Autowired 
+	private ShoppingCartService cartService;
+	
+	@Autowired 
+	private AddressService addressService;
+	
+	@Autowired 
+	private ShippingRateService shipService;
 	
 	@GetMapping("/cart")
 	public String viewCart(Model model, HttpServletRequest request) {

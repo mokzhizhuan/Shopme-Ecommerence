@@ -13,9 +13,9 @@ import org.springframework.security.authentication.RememberMeAuthenticationToken
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -77,11 +77,13 @@ public class CustomerController {
 		helper.setTo(toAddress);
 		helper.setSubject(subject);
 		
-		content = content.replace("[[name]]", customer.getFullName());
+		content = content.concat(customer.getFullName() + "<br/><br/>");
 		
 		String verifyURL = Utility.getSiteURL(request) + "/verify?code=" + customer.getVerficationCode();
 		
-		content = content.replace("[[URL]]", verifyURL);
+		content = content.concat(verifyURL + "<br/><br/>");
+		
+		content = content.concat("<br/><br/>" + "Thank you.<br/>" + "Shopme Team");
 		
 		helper.setText(content, true);
 		
@@ -91,8 +93,10 @@ public class CustomerController {
 		System.out.println("Verify URL: " + verifyURL);
 	}
 	
+	@Transactional
 	@GetMapping("/verify")
-	public String verifyAccount(String code, Model model) {
+	public String verifyAccount(String code, Model model) 
+	{
 		boolean verified = custservice.verify(code);
 		
 		return (verified ? "verify_success" : "verify_fail");

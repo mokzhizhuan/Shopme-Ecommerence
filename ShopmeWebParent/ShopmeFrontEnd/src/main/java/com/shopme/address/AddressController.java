@@ -21,9 +21,14 @@ import com.shopme.customer.CustomerService;
 @Controller
 public class AddressController {
 
-	@Autowired private AddressService addressService;
-	@Autowired private CustomerService customerService;
-	@Autowired private ControllerHelper controllerHelper;
+	@Autowired 
+	private AddressService addressService;
+	
+	@Autowired 
+	private CustomerService customerService;
+	
+	@Autowired 
+	private ControllerHelper controllerHelper;
 	
 	@GetMapping("/address_book")
 	public String showAddressBook(Model model, HttpServletRequest request) {

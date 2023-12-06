@@ -11,6 +11,7 @@
 	<link rel="stylesheet" type="text/css" th:href="@{/fontawesome/all.css}" />
 	<script type="text/javascript" th:src="@{/webjars/jquery/jquery.min.js}"></script>
 	<script type="text/javascript" th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+	<link rel="stylesheet" type="text/css" th:href="@{/fontawesome/all.css}" />
 </head>
 
 <body>
@@ -94,7 +95,7 @@
 				class="fas fa-file-csv fa-2x icon-dark mr-2"></a>
 		</div>
 
-		<div th:replace="fragments :: search_form_and_message" />
+		<div th:replace="~{fragments :: search_form_and_message}" />
 
 		<div class="full-details">
 			<table
@@ -105,16 +106,14 @@
 						<th>First Name</th>
 						<th>Last Name</th>
 
-						<th class="hideable-column">
-						<th>E-mail</th>
+						<th class="hideable-column">E-mail</th>
 
-						<th>City</th>
+						<th class="hideable-column">City</th>
 
-						<th>State</th>
+						<th class="hideable-column">State</th>
 
 						<th>Country</th>
 						<th>Enabled</th>
-						</th>
 						<th></th>
 					</tr>
 				</thead>
@@ -126,22 +125,22 @@
 						<td class="hideable-column">[[${customer.email}]]</td>
 						<td class="hideable-column">[[${customer.city}]]</td>
 						<td class="hideable-column">[[${customer.state}]]</td>
-						<td>[[${customer.country.name}]]</td>
+						<td>[[${customer.country}]]</td>
 						<td>
 							<a th:if="${customer.enabled == true}" th:href="@{'/customers/' + ${customer.id} + '/enabled/false'}" title="Disable User">
-							<img th:src="@{/circle-check-solid.png}" width="50" height="50">
+							<img th:src="@{/circle-check-solid.png}" width="50" height="50" />
 							</a>
 						<a th:if="${customer.enabled == false}" th:href="@{'/customers/' + ${customer.id} + '/enabled/true'}" title="Enable User">
-							<img th:src="@{/circle-check-solid-black.svg}" width="50" height="50">
+							<img th:src="@{/circle-check-solid-black.svg}" width="50" height="50" />
 							</a>
 						</td>
 						<td><a class="fas fa-file-alt fa-2x icon-green link-detail"
 							th:href="@{'/customers/detail/' + ${customer.id}}"
 							title="View details of this customer"></a> &nbsp;
-							<a class="nav-link" th:href="@{'/customers/edit/' + ${customers.id}}" title="Edit Customers">
+							<a class="nav-link" th:href="@{'/customers/edit/' + ${customer.id}}" title="Edit Customers">
 								<img th:src="@{/pen-to-square-solid.svg}">
 								</a> &nbsp;&nbsp; 
-							<a class="nav-link"  th:href="@{'/customers/delete/' + ${customers.id}}" title="Delete Customers">
+							<a class="nav-link"  th:href="@{'/customers/delete/' + ${customer.id}}" title="Delete Customers">
 								<img th:src="@{/trash-solid.svg}"></a>
 						</td>
 					</tr>

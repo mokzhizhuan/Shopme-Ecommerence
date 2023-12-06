@@ -6,11 +6,11 @@ import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.shopme.common.entity.Country;
 import com.shopme.common.entity.Customer;
 import com.shopme.setting.CountryRepository;
-
 import com.shopme.common.entity.AuthenticationType;
 
 @Service
@@ -56,11 +56,12 @@ public class CustomerService {
 		return customerrepo.findByEmail(email);
 	}
 	
-	
+	@Transactional
 	public boolean verify(String verificationCode) {
 		Customer customer = customerrepo.findByVerficationCode(verificationCode);
 		
-		if (customer == null || customer.isEnabled()) {
+		if (customer == null || customer.isEnabled()) 
+		{
 			return false;
 		} else {
 			customerrepo.enable(customer.getId());
@@ -86,7 +87,8 @@ public class CustomerService {
 		customer.setCreatedTIme(new Date());
 		customer.setAuthenticationType(authenticationType);
 		customer.setPassword("");
-		customer.setAddress("");
+		customer.setAddressLine1("");
+		customer.setAddressLine2("");
 		customer.setCity("");
 		customer.setState("");
 		customer.setPhoneNumber("");

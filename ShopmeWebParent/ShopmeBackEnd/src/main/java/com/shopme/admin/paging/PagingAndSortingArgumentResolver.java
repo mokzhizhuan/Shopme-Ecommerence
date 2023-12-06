@@ -32,5 +32,4 @@ public class PagingAndSortingArgumentResolver implements HandlerMethodArgumentRe
 		return new PagingAndSortingHelper(model, annotation.listName(),
 				sortField, sortDir, keyword);
 	}
-
 }

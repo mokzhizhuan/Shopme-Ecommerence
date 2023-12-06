@@ -5,10 +5,13 @@ import java.util.List;
 import java.util.NoSuchElementException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.shopme.admin.brands.BrandNotFoundException;
 import com.shopme.admin.category.CategoryNotFoundException;
+import com.shopme.admin.paging.PagingAndSortingHelper;
 import com.shopme.common.entity.Products;
 
 import jakarta.transaction.Transactional;
@@ -17,6 +20,8 @@ import jakarta.transaction.Transactional;
 @Transactional
 public class ProductService {
 
+	public static final int PRODUCTS_PER_PAGE = 5;
+	
 	@Autowired
 	private ProductRepository productrepo;
 
@@ -81,7 +86,7 @@ public class ProductService {
 	public Products get(Integer id) throws ProductNotFoundException {
 		try
 		{
-			return productrepo.findById(id).get();
+			return productrepo.findById(id);
 		}
 		catch(NoSuchElementException ex)
 		{
@@ -89,5 +94,10 @@ public class ProductService {
 		}
 	}
 	
-	
+	public void searchProducts(int pageNum, PagingAndSortingHelper helper) {
+		Pageable pageable = helper.createPageable(PRODUCTS_PER_PAGE, pageNum);
+		String keyword = helper.getKeyword();		
+		Page<Products> page = productrepo.searchProductsByName(keyword, pageable);		
+		helper.updateModelAttributes(pageNum, page);
+	}
 }

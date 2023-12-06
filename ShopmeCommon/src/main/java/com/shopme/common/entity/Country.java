@@ -19,7 +19,7 @@ public class Country {
 	private Integer id;
 	
 	@Column(nullable = false, length = 45)
-	private String name;
+	public String name;
 	
 	@Column(nullable = false, length = 5)
 	private String code;

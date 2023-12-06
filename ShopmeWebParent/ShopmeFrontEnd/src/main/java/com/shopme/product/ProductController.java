@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import com.shopme.ControllerHelper;
 import com.shopme.category.CategoryNotFoundException;
 import com.shopme.category.CategoryService;
 import com.shopme.common.entity.Category;
@@ -24,9 +25,12 @@ public class ProductController {
 	
 	@Autowired 
 	private CategoryService categoryService;
+	
 	//@Autowired private ReviewService reviewService;	
 	//@Autowired private ReviewVoteService voteService;
-	//@Autowired private ControllerHelper controllerHelper;
+	
+	@Autowired 
+	private ControllerHelper controllerHelper;
 
 	@GetMapping("/c/{category_alias}")
 	public String viewCategoryFirstPage(@PathVariable("category_alias") String alias,
@@ -63,16 +67,16 @@ public class ProductController {
 			
 			return "products";
 		} catch (CategoryNotFoundException ex) {
-			return "error/404";
+			return "error";
 		}
 	}
 	
-	@GetMapping("/p/{product_ailas}")
-	public String viewProductDetail(@PathVariable("product_alias") String ailas, Model model,
+	@GetMapping("/p/{product_alias}")
+	public String viewProductDetail(@PathVariable("product_alias") String alias, Model model,
 			HttpServletRequest request) {
 		
 		try {
-			Products product = productService.getProduct(ailas);
+			Products product = productService.getProduct(alias);
 			List<Category> listCategoryParents = categoryService.getCategoryParents(product.getCategory());
 			//Page<Review> listReviews = reviewService.list3MostVotedReviewsByProduct(product);
 			
@@ -97,7 +101,7 @@ public class ProductController {
 			
 			return "product_detail";
 		} catch (ProductNotFoundException e) {
-			return "error/404";
+			return "error";
 		}
 	}
 	

@@ -12,12 +12,7 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.test.annotation.Rollback;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.support.AnnotationConfigContextLoader;
-
-import com.shopme.category.CategoryRepositoryTests;
 import com.shopme.common.entity.AuthenticationType;
-//import com.shopme.common.entity.AuthenticationType;
 import com.shopme.common.entity.Country;
 import com.shopme.common.entity.Customer;
 
@@ -45,7 +40,7 @@ public class CustomerRepositoryTests {
 		customer.setEmail("david.s.fountaine@gmail.com");
 		customer.setEnabled(true);
 		customer.setPhoneNumber("312-462-7518");
-		customer.setAddress("1927  West Drive");
+		customer.setAddressLine1("1927  West Drive");
 		customer.setCity("Sacramento");
 		customer.setState("California");
 		customer.setPostalCode("95867");
@@ -71,7 +66,8 @@ public class CustomerRepositoryTests {
 		customer.setEmail("sanya.lad2020@gmail.com");
 		customer.setEnabled(true);
 		customer.setPhoneNumber("02224928052");
-		customer.setAddress("173 , A-, Shah & Nahar Indl.estate, Sunmill Road");
+		customer.setAddressLine1("173 , A-, Shah & Nahar Indl.estate, Sunmill Road");
+		customer.setAddressLine2("Dhanraj Mill Compound, Lower Parel (west)");
 		customer.setCity("Mumbai");
 		customer.setState("Maharashtra");
 		customer.setPostalCode("400013");
@@ -152,7 +148,7 @@ public class CustomerRepositoryTests {
 		assertThat(customer.isEnabled()).isTrue();
 	}
 	
-	/*@Test
+	@Test
 	public void testUpdateAuthenticationType() {
 		Integer id = 1;
 		repo.updateAuthenticationType(id, AuthenticationType.DATABASE);
@@ -160,5 +156,5 @@ public class CustomerRepositoryTests {
 		Customer customer = repo.findById(id).get();
 		
 		assertThat(customer.getAuthenticationType()).isEqualTo(AuthenticationType.DATABASE);
-	}*/
+	}
 }

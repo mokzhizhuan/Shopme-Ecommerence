@@ -6,9 +6,11 @@ import jakarta.persistence.MappedSuperclass;
 
 @MappedSuperclass
 public class AbstractAddressWithCountry extends AbstractAddress {
+	
+	
 	@ManyToOne
 	@JoinColumn(name = "country_id")
-	protected Country country;
+	private Country country;
 	
 	public Country getCountry() {
 		return country;
@@ -31,8 +33,6 @@ public class AbstractAddressWithCountry extends AbstractAddress {
 		if (!city.isEmpty()) address += ", " + city;
 		
 		if (state != null && !state.isEmpty()) address += ", " + state;
-		
-		address += ", " + country.getName();
 		
 		if (!postalCode.isEmpty()) address += ". Postal Code: " + postalCode;
 		if (!phoneNumber.isEmpty()) address += ". Phone Number: " + phoneNumber;
