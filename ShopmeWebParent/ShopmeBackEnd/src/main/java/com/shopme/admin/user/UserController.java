@@ -1,6 +1,7 @@
 package com.shopme.admin.user;
 
 
+import java.io.*;
 import java.io.IOException;
 import java.util.List;
 
@@ -86,6 +87,11 @@ public class UserController {
 			return "user_form";
 		}
 		catch(UserNotFoundException ex)
+		{
+			redirectAttributes.addFlashAttribute("message", ex.getMessage());
+			return "redirect:/users";
+		}
+		catch(NullPointerException ex)
 		{
 			redirectAttributes.addFlashAttribute("message", ex.getMessage());
 			return "redirect:/users";

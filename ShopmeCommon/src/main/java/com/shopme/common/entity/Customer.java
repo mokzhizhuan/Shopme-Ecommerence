@@ -99,7 +99,13 @@ public class Customer extends AbstractAddressWithCountry {
 		this.phoneNumber = phoneNumber;
 	}
 
-	
+	public Country getCountry() {
+		return country;
+	}
+
+	public void setCountry(Country country) {
+		this.country = country;
+	}
 
 	public String getCity() {
 		return city;
