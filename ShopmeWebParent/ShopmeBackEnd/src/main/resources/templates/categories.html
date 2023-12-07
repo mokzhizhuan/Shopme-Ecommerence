@@ -64,9 +64,6 @@
 						<li class="nav-item">
 							<a class="nav-link" th:href="@{/article}">Article</a>
 						</li>
-						<li class="nav-item">
-							<a class="nav-link" th:href="@{/menu}">Menu</a>
-						</li>
 						</th:block>
 						<li class="nav-item">
 							<a class="nav-link" sec:authorize"hasAuthority('Admin')" th:href="@{/setting}">Setting</a>
@@ -109,8 +106,8 @@
 			<tbody>
 				<tr th:each="cate : ${listCategories}">
 					<td>[[${cate.id}]]</td>
-					<td><img th:if="${cate.image == null}" th:src="@{/image-thumbnail.png}" width="150" height="200">
-						<img th:if="${cate.image != null}" th:src="@{${cate.photosImagePath}}" width="50%" height="50%"></td>
+					<td><img th:if="${cate.image == null}" th:src="@{/image-thumbnail.png}" width="150" height="200"/>
+						<img th:if="${cate.image != null}" th:src="@{${cate.imagePath}}" width="50%" height="50%" /></td>
 					<td>[[${cate.name}]]</td>
 					<td>[[${cate.alias}]]</td>
 					<td><a th:if="${cate.enabled == true}" th:href="@{'/categories/' + ${cate.id} + '/enabled/false'}" title="Disable Category">
@@ -120,10 +117,10 @@
 							<img th:src="@{/circle-check-solid-black.svg}" width="50" height="50">
 							</a></td></td>
 					<td>
-						<a class="fas fa-edit fa-2x icon-green" th:href="@{'/categories/edit/' + ${cate.id}}"
+						<a th:href="@{'/categories/edit/' + ${cate.id}}"
 						 title="Edit this category"><img th:src="@{/pen-to-square-solid.svg}"></a> 
 						&nbsp; 
-						<a class="fas fa-edit fa-2x icon-blue link-delete" id="linkdelete" 
+						<a id="linkdelete" 
 						th:href="@{'/categories/delete/' + ${cate.id}}" title="Delete this category">
 						<img th:src="@{/trash-solid.svg}"></a>
 					</td>

@@ -25,6 +25,9 @@ public class CustomerService {
 	private CustomerRepository customerRepo;
 	
 	@Autowired 
+	private CustomerRepo customerRepos;
+	
+	@Autowired 
 	private CountryRepository countryRepo;	
 	
 	@Autowired 
@@ -40,7 +43,7 @@ public class CustomerService {
 	
 	public Customer get(Integer id) throws CustomerNotFoundException {
 		try {
-			return customerRepo.findById(id).get();
+			return customerRepos.findById(id).get();
 		} catch (NoSuchElementException ex) {
 			throw new CustomerNotFoundException("Could not find any customers with ID " + id);
 		}
@@ -62,7 +65,7 @@ public class CustomerService {
 	}
 	
 	public void save(Customer customerInForm) {
-		Customer customerInDB = customerRepo.findById(customerInForm.getId()).get();
+		Customer customerInDB = customerRepos.findById(customerInForm.getId()).get();
 		
 		if (!customerInForm.getPassword().isEmpty()) {
 			String encodedPassword = passwordEncoder.encode(customerInForm.getPassword());

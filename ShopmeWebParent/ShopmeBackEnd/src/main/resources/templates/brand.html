@@ -66,9 +66,6 @@
 						<li class="nav-item">
 							<a class="nav-link" th:href="@{/article}">Article</a>
 						</li>
-						<li class="nav-item">
-							<a class="nav-link" th:href="@{/menu}">Menu</a>
-						</li>
 						</th:block>
 						<li class="nav-item">
 							<a class="nav-link" sec:authorize"hasAuthority('Admin')" th:href="@{/setting}">Setting</a>
@@ -110,8 +107,8 @@
 				<tbody>
 					<tr th:each="brand : ${listBrands}">
 						<td >[[${brand.id}]]</td>
-						<td width="250"><!--<img th:if="${brand.logo == null}" th:src="@{/image-portrait-solid.svg}" width="150" height="200">
-						<img th:if="${brand.logo != null}" th:src="@{${brand.photosImagePath}}" width="50%" height="50%"></td>-->
+						<td width="250"><img th:if="${brand.logo == null}" th:src="@{/image-thumbnail.png}" width="150" height="200" />
+						<img th:if="${brand.logo != null}" th:src="@{${brand.getLogoPath}}" width="50%" height="50%" /></td>
 						<td width="150">[[${brand.name}]]</td>
 						<td>
 							<th:block th:each="cat : ${brand.categories}">

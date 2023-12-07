@@ -66,9 +66,6 @@
 						<li class="nav-item">
 							<a class="nav-link" th:href="@{/article}">Article</a>
 						</li>
-						<li class="nav-item">
-							<a class="nav-link" th:href="@{/menu}">Menu</a>
-						</li>
 						</th:block>
 						<li class="nav-item">
 							<a class="nav-link" sec:authorize"hasAuthority('Admin')" th:href="@{/setting}">Setting</a>
@@ -114,7 +111,7 @@
 					<tr th:each="user : ${listUsers}">
 						<td >[[${user.id}]]</td>
 						<td width="250"><img th:if="${user.photos == null}" th:src="@{/image-portrait-solid.svg}" width="150" height="200">
-						<img th:if="${user.photos != null}" th:src="@{${user.photosImagePath}}" width="50%" height="50%"></td>
+						<img th:if="${user.photos != null}" th:src="@{${user.photosImagePath}}" width="50%" height="50%" /></td>
 						<td width="150">[[${user.email}]]</td>
 						<td width="150">[[${user.firstName}]]</td>
 						<td width="150">[[${user.lastName}]]</td>

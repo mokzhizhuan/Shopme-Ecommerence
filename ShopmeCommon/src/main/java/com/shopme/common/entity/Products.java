@@ -56,7 +56,7 @@ public class Products {
 	private float discountcost;
 	
 	@Column(name="mainimage")
-	private String mainImage;
+	public String image;
 	
 	private float length;
 	private float width;
@@ -234,11 +234,11 @@ public class Products {
 	}
 
 	public String getMainImage() {
-		return mainImage;
+		return image;
 	}
 
 	public void setMainImage(String mainImage) {
-		this.mainImage = mainImage;
+		this.image = mainImage;
 	}
 
 	public Set<ProductImage> getImages() {
@@ -262,14 +262,14 @@ public class Products {
 	}
 
 	@Transient
-	public String getPhotosImagePath()
+	public String getImagePath()
 	{
-		if(Id == null || mainImage  == null)
+		if(Id == null || image  == null)
 		{
 			return "/images/default-image.png";
 		}
 		
-		return "/product-images/" + this.Id + "/" + this.mainImage;
+		return "/product-images/" + this.Id + "/" + this.image;
 	}
 	
 	@Transient
@@ -288,5 +288,7 @@ public class Products {
 	public float getCost() {
 		return cost;
 	}
+
+	
 
 }

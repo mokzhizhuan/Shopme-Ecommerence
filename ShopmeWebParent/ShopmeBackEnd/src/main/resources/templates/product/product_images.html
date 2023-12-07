@@ -10,11 +10,11 @@
 		<div class="col border m-3 p-2">
 			<div><label>Main Image :</label></div>
 			<div class="m-2">
-				<img id="thumbnail" alt="Main image preview" class="img-fluid" th:src"@{${product.mainImagePath}}" />
+				<img id="thumbnail" alt="Main image preview" class="img-fluid" th:src"@{${product.getImagePath}}" />
 			</div>
 		</div>
 		<div>
-			<input type="file" id="fileImage" name="fileImage" required accept="image/png, image/jpeg" />
+			<input type="file" id="fileImage" name="fileImage" accept="image/png, image/jpeg" />
 		</div>
 	</div>
 	<div class="col border m-3 p-2">
@@ -24,7 +24,7 @@
 			</div>
 		</div>
 		<div>
-			<input type="file" id="extraImage" name="extraImage" required accept="image/png, image/jpeg" />
+			<input type="file" id="extraImage" name="extraImage" accept="image/png, image/jpeg" />
 		</div>
 	</div>
 	</div>

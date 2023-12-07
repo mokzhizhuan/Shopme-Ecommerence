@@ -99,11 +99,11 @@ public class Brands
 	@Transient
 	public String getLogoPath()
 	{
-		if(this.id== null)
+		if(this.id == null || this.logo == null)
 		{
 			return "/images/image-thumbnail.png";
 		}
 		
-		return "/brand-logos/" + this.id + "/" + this.logo;
+		return "/brands-logos/" + this.id + "/" + this.logo;
 	}
 }

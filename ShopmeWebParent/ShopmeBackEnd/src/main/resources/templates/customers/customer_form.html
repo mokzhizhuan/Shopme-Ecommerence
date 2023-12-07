@@ -67,9 +67,6 @@
 						<li class="nav-item">
 							<a class="nav-link" th:href="@{/article}">Article</a>
 						</li>
-						<li class="nav-item">
-							<a class="nav-link" th:href="@{/menu}">Menu</a>
-						</li>
 						</th:block>
 						<li class="nav-item">
 							<a class="nav-link" sec:authorize"hasAuthority('Admin')" th:href="@{/setting}">Setting</a>

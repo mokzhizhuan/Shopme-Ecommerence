@@ -68,9 +68,6 @@
 						<li class="nav-item">
 							<a class="nav-link" th:href="@{/article}">Article</a>
 						</li>
-						<li class="nav-item">
-							<a class="nav-link" th:href="@{/menu}">Menu</a>
-						</li>
 						</th:block>
 						<li class="nav-item">
 							<a class="nav-link" sec:authorize"hasAuthority('Admin')" th:href="@{/setting}">Setting</a>
@@ -90,9 +87,6 @@
 		</div>
 		<div>
 			<h2>Manage Customers</h2>
-
-			<a th:href="@{/customers/export/csv}"
-				class="fas fa-file-csv fa-2x icon-dark mr-2"></a>
 		</div>
 
 		<div th:replace="~{fragments :: search_form_and_message}" />

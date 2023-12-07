@@ -22,7 +22,7 @@ import com.shopme.common.entity.Products;
 public class ProductRepositoryTests {
 
 	@Autowired
-	private ProductRepository repo;
+	private ProductRepo repo;
 	
 	@Autowired
 	private TestEntityManager entityManager;
@@ -63,7 +63,7 @@ public class ProductRepositoryTests {
 	@Test
 	public void testGetProduct() {
 		Integer id = 2;
-		Products product = repo.findById(id);
+		Products product = repo.findById(id).get();
 		System.out.println(product);
 		
 		assertThat(product).isNotNull();
@@ -72,7 +72,7 @@ public class ProductRepositoryTests {
 	@Test
 	public void testUpdateProduct() {
 		Integer id = 1;
-		Products product = repo.findById(id);
+		Products product = repo.findById(id).get();
 		product.setPrice(499);
 		
 		repo.save(product);
@@ -95,7 +95,7 @@ public class ProductRepositoryTests {
 	@Test
 	public void testSaveProductWithImages() {
 		Integer productId = 1;
-		Products product = repo.findById(productId);
+		Products product = repo.findById(productId).get();
 		
 		product.setMainImage("main image.jpg");
 		product.addExtraImages("extra image 1.png");
@@ -110,7 +110,7 @@ public class ProductRepositoryTests {
 	@Test
 	public void testSaveProductWithDetails() {
 		Integer productId = 1;
-		Products product = repo.findById(productId);
+		Products product = repo.findById(productId).get();
 		
 		product.addDetail("Device Memory", "128 GB");
 		product.addDetail("CPU Model", "MediaTek");

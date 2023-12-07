@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.shopme.admin.paging.PagingAndSortingHelper;
+import com.shopme.admin.product.ProductRepo;
 import com.shopme.admin.product.ProductRepository;
 import com.shopme.admin.setting.country.CountryRepository;
 import com.shopme.common.entity.Country;
@@ -28,7 +29,7 @@ public class ShippingRateService {
 	private CountryRepository countryRepo;
 	
 	@Autowired 
-	private ProductRepository productRepo;
+	private ProductRepo productRepo;
 	
 	public void listByPage(int pageNum, PagingAndSortingHelper helper) {
 		helper.listEntities(pageNum, RATES_PER_PAGE, shipRepo);
@@ -86,7 +87,7 @@ public class ShippingRateService {
 					+ "destination. You have to enter shipping cost manually.");
 		}
 		
-		Products product = productRepo.findById(productId);
+		Products product = productRepo.findById(productId).get();
 		
 		float dimWeight = (product.getLength() * product.getWidth() * product.getHeight()) / DIM_DIVISOR;
 		float finalWeight = product.getWeight() > dimWeight ? product.getWeight() : dimWeight;

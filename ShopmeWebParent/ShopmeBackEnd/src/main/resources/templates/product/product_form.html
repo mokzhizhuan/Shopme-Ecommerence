@@ -64,9 +64,6 @@
 						<li class="nav-item">
 							<a class="nav-link" th:href="@{/article}">Article</a>
 						</li>
-						<li class="nav-item">
-							<a class="nav-link" th:href="@{/menu}">Menu</a>
-						</li>
 						</th:block>
 						<li class="nav-item">
 							<a class="nav-link" sec:authorize"hasAuthority('Admin')" th:href="@{/setting}">Setting</a>
@@ -113,21 +110,21 @@
 			<!-- Tab panes -->
 			<div class="tab-content">
 			  <div class="tab-pane active p-3" id="Overview" role="tabpanel">
-				  <div th:replace="product/product_overview :: content"></div>
+				  <div th:replace="~{product/product_overview :: content}"></div>
 			  </div>
 			  <div class="tab-pane p-3" id="Description" role="tabpanel">
-				  <div th:replace="product/product_description :: content"></div>
+				  <div th:replace="~{product/product_description :: content}"></div>
 			  </div>
 			  <div class="tab-pane p-3" id="Images" role="tabpanel">
-				  <div th:replace="product/product_images :: content"></div>
+				  <div th:replace="~{product/product_images :: content}"></div>
 			  </div>
 			  <div class="tab-pane p-3" id="Details" role="tabpanel">
-				  <div th:replace="product/product_details :: content">
+				  <div th:replace="~{product/product_details :: content}">
 				  </div>
 				  <input type="button" value="Add More Details" class="btn btn-secondary" onclick="addNextDetailSection()" />
 			  </div>
 			  <div class="tab-pane p-3" id="Shipping" role="tabpanel">
-				  <div th:replace="product/product_shipping :: content"></div>
+				  <div th:replace="~{product/product_shipping :: content}"></div>
 			  </div>
 			</div>
 		<div class="text-center">

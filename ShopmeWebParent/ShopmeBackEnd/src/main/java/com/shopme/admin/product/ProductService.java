@@ -24,6 +24,9 @@ public class ProductService {
 	
 	@Autowired
 	private ProductRepository productrepo;
+	
+	@Autowired
+	private ProductRepo productreposit;
 
 	public List<Products> listAll()
 	{
@@ -80,17 +83,17 @@ public class ProductService {
 			throw new ProductNotFoundException("Could not find any product with ID " + id);
 		}
 		
-		productrepo.deleteById(id);
+		productreposit.deleteById(id);
 	}
 
 	public Products get(Integer id) throws ProductNotFoundException {
 		try
 		{
-			return productrepo.findById(id);
+			return productreposit.findById(id).get();
 		}
 		catch(NoSuchElementException ex)
 		{
-			throw new ProductNotFoundException("Could not find any brand with ID" + id);
+			throw new ProductNotFoundException("Could not find any product with ID" + id);
 		}
 	}
 	

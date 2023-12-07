@@ -1,11 +1,12 @@
 package com.shopme.admin.product;
 
+import java.util.List;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
-import org.springframework.data.util.Streamable;
 
 import com.shopme.common.entity.Products;
 
@@ -24,11 +25,7 @@ public interface ProductRepository extends PagingAndSortingRepository <Products,
 
 	public Products save(Products product);
 
-	public void deleteById(Integer id);
 
-	@Query("SELECT p FROM Products p WHERE p.id = ?1")
-	public Products findById(Integer id);
-
-	public Iterable<Products> findAll();
+	public List<Products> findAll();
 	
 }

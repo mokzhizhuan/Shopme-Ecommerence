@@ -101,13 +101,12 @@
 	<div th:fragment="search_form_and_message()">
 		<form th:action="@{${moduleURL} + '/page/1'}" class="form-inline m-3">
 			<input type="hidden" name="sortField" th:value="${sortField}" /> 
-			<input type="hidden" name="sortDir" th:value="${sortDir}" /> 
 			
 			Filter:&nbsp;
 			<input type="search" name="keyword" th:value="${keyword}" class="form-control" required /> &nbsp;&nbsp;
 			
 			<button type="submit" class="btn btn-primary">
-				<i class="fas fa-search"></i>
+				<img th:src="@{magnifying-glass.256x256.png}" width="30px" height="30px"/>
 			</button>
 			&nbsp;&nbsp;
 			

@@ -128,9 +128,9 @@ public class Category {
 	}
 	
 	@Transient
-	public String getPhotosImagePath()
+	public String getImagePath()
 	{
-		if(image == null)
+		if(image == null || id == 0)
 		{
 			return "/images/default-image.png";
 		}
