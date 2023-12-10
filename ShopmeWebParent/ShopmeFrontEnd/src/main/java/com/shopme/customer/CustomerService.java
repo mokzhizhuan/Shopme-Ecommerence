@@ -133,14 +133,14 @@ public class CustomerService {
 	public String updateResetPasswordToken(String email) throws CustomerNotFoundException {
 		Customer customer = customerrepo.findByEmail(email);
 		if (customer != null) {
-			String SALTCHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
-	        StringBuilder salt = new StringBuilder();
+			String randCHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
+	        StringBuilder random = new StringBuilder();
 	        Random rnd = new Random();
-	        while (salt.length() < 30) { // length of the random string.
-	            int index = (int) (rnd.nextFloat() * SALTCHARS.length());
-	            salt.append(SALTCHARS.charAt(index));
+	        while (random.length() < 30) { // length of the random string.
+	            int index = (int) (rnd.nextFloat() * randCHARS.length());
+	            random.append(randCHARS.charAt(index));
 	        }
-			String token = salt.toString();
+			String token = random.toString();
 			customer.setResetPasswordToken(token);
 			customerrepo.save(customer);
 			
