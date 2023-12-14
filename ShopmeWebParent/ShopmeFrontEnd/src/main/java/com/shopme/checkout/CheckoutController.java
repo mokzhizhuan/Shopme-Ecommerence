@@ -18,12 +18,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import com.shopme.ControllerHelper;
 import com.shopme.Utility;
 import com.shopme.address.AddressService;
-import com.shopme.checkout.paypal.PayPalApiException;
-import com.shopme.checkout.paypal.PayPalService;
+import com.shopme.checkout.payment.PaymentService;
 import com.shopme.common.entity.Address;
 import com.shopme.common.entity.CartItem;
 import com.shopme.common.entity.Customer;
 import com.shopme.common.entity.Order;
+import com.shopme.common.entity.Payment;
 import com.shopme.common.entity.PaymentMethod;
 import com.shopme.common.entity.ShippingRate;
 import com.shopme.order.OrderService;
@@ -59,9 +59,10 @@ public class CheckoutController {
 	
 	@Autowired 
 	private SettingService settingService;
-	
+
 	@Autowired 
-	private PayPalService paypalService;
+	private PaymentService paymentService;
+	
 	
 	@GetMapping("/checkout")
 	public String showCheckoutPage(Model model, HttpServletRequest request) {
@@ -89,6 +90,7 @@ public class CheckoutController {
 		PaymentSettingBag paymentSettings = settingService.getPaymentSettings();
 		String paypalClientId = paymentSettings.getClientID();
 		
+		model.addAttribute("payment", new Payment());
 		model.addAttribute("paypalClientId", paypalClientId);
 		model.addAttribute("currencyCode", currencyCode);
 		model.addAttribute("customer", customer);
@@ -121,6 +123,36 @@ public class CheckoutController {
 		Order createdOrder = orderService.createOrder(customer, defaultAddress, cartItems, paymentMethod, checkoutInfo);
 		cartService.deleteByCustomer(customer);
 		sendOrderConfirmationEmail(request, createdOrder);
+		
+		return "checkout/order_completed";
+	}
+	
+	@PostMapping("/place_order_card")
+	public String placeOrderCard(Model model , HttpServletRequest request , Payment payment) 
+			throws UnsupportedEncodingException, MessagingException 
+	{
+		String paymentType = "CREDIT_CARD";
+		PaymentMethod paymentMethod = PaymentMethod.valueOf(paymentType);
+		
+		Customer customer = controllerHelper.getAuthenticatedCustomer(request);
+		
+		
+		Address defaultAddress = addressService.getDefaultAddress(customer);
+		ShippingRate shippingRate = null;
+		
+		if (defaultAddress != null) {
+			shippingRate = shipService.getShippingRateForAddress(defaultAddress);
+		} else {
+			shippingRate = shipService.getShippingRateForCustomer(customer);
+		}
+				
+		List<CartItem> cartItems = cartService.listCartItems(customer);
+		CheckoutInfo checkoutInfo = checkoutService.prepareCheckout(cartItems, shippingRate);
+		
+		Order createdOrder = orderService.createOrder(customer, defaultAddress, cartItems, paymentMethod, checkoutInfo);
+		cartService.deleteByCustomer(customer);
+		sendOrderConfirmationEmail(request, createdOrder);
+		paymentService.save(payment);
 		
 		return "checkout/order_completed";
 	}
@@ -161,31 +193,5 @@ public class CheckoutController {
 		
 		helper.setText(content, true);
 		mailSender.send(message);		
-	}
-	
-	@PostMapping("/process_paypal_order")
-	public String processPayPalOrder(HttpServletRequest request, Model model) 
-			throws UnsupportedEncodingException, MessagingException {
-		String orderId = request.getParameter("orderId");
-		
-		String pageTitle = "Checkout Failure";
-		String message = null;
-		
-		try {
-			if (paypalService.validateOrder(orderId)) {
-				return placeOrder(request);
-			} else {
-				pageTitle = "Checkout Failure";
-				message = "ERROR: Transaction could not be completed because order information is invalid";
-			}
-		} catch (PayPalApiException e) {
-			message = "ERROR: Transaction failed due to error: " + e.getMessage();
-		}
-		
-		model.addAttribute("pageTitle", pageTitle);
-		model.addAttribute("title", pageTitle);
-		model.addAttribute("message", message);
-		
-		return "message";
 	}
 }

@@ -5,7 +5,7 @@
 	<div th:fragment="content" class="col-sm-2">
 		<div>
 		<a th:href="@{${product.URI}}">
-			<img th:src="@{${product.photosImagePath}}" width="150" /> <br /> <b>[[${product.name}]]</b>
+			<img th:src="@{${product.ImagePath}}" width="150" /> <br /> <b>[[${product.name}]]</b>
 			</a>
 		</div>
 		<div th:replace="product/product_fragment :: product_price"></div>

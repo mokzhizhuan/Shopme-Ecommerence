@@ -26,18 +26,14 @@ import com.shopme.common.entity.Products;
 public class OrderService {
 	public static final int ORDERS_PER_PAGE = 5;
 	
-	@Autowired private OrderRepository repo;
+	@Autowired 
+	private OrderRepository repo;
 	
 	public Order createOrder(Customer customer, Address address, List<CartItem> cartItems,
 			PaymentMethod paymentMethod, CheckoutInfo checkoutInfo) {
 		Order newOrder = new Order();
 		newOrder.setOrderTime(new Date());
-		
-		if (paymentMethod.equals(PaymentMethod.PAYPAL)) {
-			newOrder.setStatus(OrderStatus.PAID);
-		} else {
-			newOrder.setStatus(OrderStatus.NEW);
-		}
+		newOrder.setStatus(OrderStatus.NEW);
 		
 		newOrder.setCustomer(customer);
 		newOrder.setProductCost(checkoutInfo.getProductCost());
