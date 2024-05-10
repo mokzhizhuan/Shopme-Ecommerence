@@ -11,11 +11,8 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "shipping_rates")
-public class ShippingRate {
+public class ShippingRate extends IdIdentify{
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
 	
 	private float rate;
 	private int days;
@@ -30,13 +27,6 @@ public class ShippingRate {
 	@Column(nullable = false, length = 45)
 	private String state;
 	
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
 
 	public float getRate() {
 		return rate;

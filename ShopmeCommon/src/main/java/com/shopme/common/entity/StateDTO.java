@@ -1,7 +1,6 @@
 package com.shopme.common.entity;
 
-public class StateDTO {
-	private Integer id;
+public class StateDTO extends IdIdentify{
 	private String name;
 	
 	public StateDTO() {
@@ -11,14 +10,6 @@ public class StateDTO {
 	public StateDTO(Integer id, String name) {
 		this.id = id;
 		this.name = name;
-	}
-
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
 	}
 
 	public String getName() {

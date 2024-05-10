@@ -16,11 +16,8 @@ import jakarta.persistence.Transient;
 
 @Entity
 @Table(name = "brands")
-public class Brands 
+public class Brands extends IdIdentify 
 {
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
 	
 	@Column(length = 45, nullable = false, unique = true)
 	private String name;
@@ -57,14 +54,6 @@ public class Brands
 		this.name = name;
 		this.logo = logo;
 		this.categories = categories;
-	}
-
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
 	}
 
 	public String getName() {

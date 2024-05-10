@@ -11,11 +11,8 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "product_details")
-public class ProductDetail {
+public class ProductDetail extends IdIdentify {
 	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer Id;
 	
 	@Column(length = 255, nullable = false)
 	private String name; 
@@ -37,20 +34,11 @@ public class ProductDetail {
 		this.value = value;
 		this.product = product;
 	}
-
 	public ProductDetail(Integer id, String name, String value, Products product) {
-		this.Id = id;
+		this.id = id;
 		this.name = name;
 		this.value = value;
 		this.product = product;
-	}
-
-	public Integer getId() {
-		return Id;
-	}
-
-	public void setId(Integer id) {
-		Id = id;
 	}
 
 	public String getName() {

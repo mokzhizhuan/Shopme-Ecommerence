@@ -7,11 +7,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.MappedSuperclass;
 
 @MappedSuperclass
-public abstract class AbstractAddress {
+public abstract class AbstractAddress extends IdIdentify {
 	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	public Integer id;
 	
 	@Column(name = "first_name", nullable = false, length = 45)
 	protected String firstName;
@@ -37,13 +34,6 @@ public abstract class AbstractAddress {
 	@Column(name = "postal_code", nullable = false, length = 10)
 	protected String postalCode;
 	
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
 
 	public String getFirstName() {
 		return firstName;

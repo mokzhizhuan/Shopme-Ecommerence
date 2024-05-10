@@ -20,11 +20,8 @@ import jakarta.persistence.Transient;
 
 @Entity
 @Table(name = "product")
-public class Products {
+public class Products extends IdIdentify{
 	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer Id;
 	
 	@Column(length = 128, nullable = false, unique = true)
 	private String name; 
@@ -80,7 +77,7 @@ public class Products {
 	private float cost;
 
 	public Products(Integer id) {
-		this.Id = id;
+		this.id = id;
 	}
 
 	public Products() 
@@ -90,14 +87,6 @@ public class Products {
 
 	public Products(String name) {
 		this.name = name;
-	}
-
-	public Integer getId() {
-		return Id;
-	}
-
-	public void setId(Integer id) {
-		this.Id = id;
 	}
 
 	public String getName() {
@@ -230,7 +219,7 @@ public class Products {
 	
 	@Override
 	public String toString() {
-		return "Products [Id=" + Id + ", name=" + name + "]";
+		return "Products [Id=" + id + ", name=" + name + "]";
 	}
 
 	public String getMainImage() {
@@ -264,12 +253,12 @@ public class Products {
 	@Transient
 	public String getImagePath()
 	{
-		if(Id == null || image  == null)
+		if(id == null || image  == null)
 		{
 			return "/images/default-image.png";
 		}
 		
-		return "/product-images/" + this.Id + "/" + this.image;
+		return "/product-images/" + this.id + "/" + this.image;
 	}
 	
 	@Transient

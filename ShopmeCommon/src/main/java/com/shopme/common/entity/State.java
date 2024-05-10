@@ -11,11 +11,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "states")
-public class State {
-	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
+public class State extends IdIdentify {
 	
 	@Column(nullable = false, length = 45)
 	private String name;
@@ -54,11 +50,4 @@ public class State {
 		return "State [id=" + id + ", name=" + name + "]";
 	}
 
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
 }

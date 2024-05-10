@@ -13,12 +13,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "payment")
-public class Payment {
-
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
-	
+public class Payment extends IdIdentify {
 	@Enumerated(EnumType.STRING)
 	@Column(name = "payment_type", length = 20)
 	private PaymentType paymenttype;
@@ -29,14 +24,6 @@ public class Payment {
 	@Column(name="cvc", length = 3)
 	private int cvc;
 	
-	
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
 
 	public PaymentType getPaymenttype() {
 		return paymenttype;
